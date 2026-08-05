@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>
+    Financeiro | ASA TEC 3D
+  </title>
+
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+  >
+
+  <link
+    rel="stylesheet"
+    href="../css/financeiro.css"
+  >
+
+</head>
+
+<body>
+
+<div class="layout">
+
+  <!-- SIDEBAR -->
+
+  <aside class="sidebar">
+
+    <div class="sidebar-top">
+
+      <div class="logo">
+
+        <img
+          src="../img/logo.png"
+          class="logo-img"
+          alt="Logo"
+        >
+
+        <div class="logo-text">
+
+          <h1>ASA TEC 3D</h1>
+
+          <p>
+            ERP Impressão 3D
+          </p>
+
+        </div>
+
+      </div>
+
+      <nav class="menu">
+
+        <a href="../index.html">
+          <i class="fa-solid fa-house"></i>
+          <span>Dashboard</span>
+        </a>
+
+        <a href="pedidos.html">
+          <i class="fa-solid fa-box"></i>
+          <span>Pedidos</span>
+        </a>
+
+        <a href="clientes.html">
+          <i class="fa-solid fa-users"></i>
+          <span>Clientes</span>
+        </a>
+
+        <a href="produtos.html">
+          <i class="fa-solid fa-cube"></i>
+          <span>Produtos</span>
+        </a>
+
+        <a href="estoque.html">
+          <i class="fa-solid fa-layer-group"></i>
+          <span>Estoque</span>
+        </a>
+
+        <a href="producao.html">
+          <i class="fa-solid fa-print"></i>
+          <span>Produção</span>
+        </a>
+
+        <a
+          href="financeiro.html"
+          class="active"
+        >
+          <i class="fa-solid fa-chart-line"></i>
+          <span>Financeiro</span>
+        </a>
+
+        <a href="relatorios.html">
+          <i class="fa-solid fa-chart-pie"></i>
+          <span>Relatórios</span>
+        </a>
+
+        <a href="configuracoes.html">
+          <i class="fa-solid fa-gear"></i>
+          <span>Configurações</span>
+        </a>
+
+        <a href="#">
+          <i class="fa-solid fa-right-to-bracket"></i>
+          <span>Login</span>
+        </a>
+
+      </nav>
+
+    </div>
+
+    <div class="social">
+
+      <h3>Contatos</h3>
+
+      <a
+        href="#"
+        class="instagram-link"
+      >
+        <i class="fa-brands fa-instagram"></i>
+        <span>Instagram</span>
+      </a>
+
+      <a
+        href="#"
+        class="whatsapp-link"
+      >
+        <i class="fa-brands fa-whatsapp"></i>
+        <span>WhatsApp</span>
+      </a>
+
+    </div>
+
+  </aside>
+
+  <!-- MAIN -->
+
+  <main class="main">
+
+    <!-- HEADER -->
+
+    <section class="page-header">
+
+      <div>
+
+        <h2>
+          Financeiro
+        </h2>
+
+        <p>
+          Controle financeiro completo da empresa
+        </p>
+
+      </div>
+
+    </section>
+
+    <!-- RESUMO -->
+
+    <section class="cards-resumo">
+
+      <div class="resumo-card receita">
+
+        <span>Receita Total</span>
+
+        <h3 id="receitaTotal">
+          R$ 0,00
+        </h3>
+
+      </div>
+
+      <div class="resumo-card lucro">
+
+        <span>Lucro Líquido</span>
+
+        <h3 id="lucroTotal">
+          R$ 0,00
+        </h3>
+
+      </div>
+
+      <div class="resumo-card despesa">
+
+        <span>Despesas</span>
+
+        <h3 id="despesasTotal">
+          R$ 0,00
+        </h3>
+
+      </div>
+
+      <div class="resumo-card receber">
+
+        <span>Contas a Receber</span>
+
+        <h3 id="receberTotal">
+          R$ 0,00
+        </h3>
+
+      </div>
+
+      <div class="resumo-card investimento">
+
+        <span>Investimentos</span>
+
+        <h3 id="investimentoTotal">
+          R$ 0,00
+        </h3>
+
+      </div>
+
+      <div class="resumo-card vencido">
+
+        <span>Vencidos</span>
+
+        <h3 id="vencidosTotal">
+          0
+        </h3>
+
+      </div>
+
+    </section>
+
+    <!-- GRÁFICOS -->
+
+    <section class="charts-grid">
+
+      <div class="panel">
+
+        <div class="panel-header">
+
+          <h3>
+            Receita x Despesas
+          </h3>
+
+        </div>
+
+        <canvas id="graficoReceita"></canvas>
+
+      </div>
+
+      <div class="panel">
+
+        <div class="panel-header">
+
+          <h3>
+            Status dos Pedidos
+          </h3>
+
+        </div>
+
+        <canvas id="graficoPedidos"></canvas>
+
+      </div>
+
+    </section>
+
+    <!-- FLUXO DE CAIXA -->
+
+    <section class="panel">
+
+      <div class="panel-header">
+
+        <h3>
+          Fluxo de Caixa
+        </h3>
+
+      </div>
+
+      <table>
+
+        <thead>
+
+          <tr>
+
+            <th>Data</th>
+            <th>Tipo</th>
+            <th>Descrição</th>
+            <th>Valor</th>
+
+          </tr>
+
+        </thead>
+
+        <tbody id="fluxoCaixaTable">
+
+        </tbody>
+
+      </table>
+
+    </section>
+
+    <!-- CONTAS -->
+
+    <div class="finance-grid">
+
+      <!-- RECEBER -->
+
+      <section class="panel">
+
+        <div class="panel-header">
+
+          <h3>
+            Contas a Receber
+          </h3>
+
+        </div>
+
+        <table>
+
+          <thead>
+
+            <tr>
+
+              <th>Cliente</th>
+              <th>Pedido</th>
+              <th>Valor</th>
+              <th>Status</th>
+
+            </tr>
+
+          </thead>
+
+          <tbody id="contasReceberTable">
+
+          </tbody>
+
+        </table>
+
+      </section>
+
+      <!-- PAGAR -->
+
+      <section class="panel">
+
+        <div class="panel-header">
+
+          <h3>
+            Contas a Pagar
+          </h3>
+
+          <button
+            class="btn-primary"
+            id="novaConta"
+          >
+
+            <i class="fa-solid fa-plus"></i>
+
+            Nova Conta
+
+          </button>
+
+        </div>
+
+        <table>
+
+          <thead>
+
+            <tr>
+
+              <th>Descrição</th>
+              <th>Categoria</th>
+              <th>Valor</th>
+              <th>Vencimento</th>
+
+            </tr>
+
+          </thead>
+
+          <tbody id="contasPagarTable">
+
+          </tbody>
+
+        </table>
+
+      </section>
+
+    </div>
+
+    <!-- INVESTIMENTOS -->
+
+      <section class="panel">
+
+    <div class="panel-header">
+
+    <h3>
+        Investimentos
+    </h3>
+
+
+     <button
+      class="btn-primary"
+      id="novoInvestimento"
+     >
+
+    <i class="fa-solid fa-plus"></i>
+
+       Novo Investimento
+
+    </button>
+
+
+      </div>
+
+      <!-- MODAL INVESTIMENTO -->
+
+<div class="modal" id="modalInvestimento">
+
+
+<div class="modal-content">
+
+
+<h2>
+Novo Investimento
+</h2>
+
+
+<input
+type="text"
+id="investimentoNome"
+placeholder="Nome do investimento"
+>
+
+
+<input
+type="number"
+id="investimentoValor"
+placeholder="Valor"
+>
+
+
+<input
+type="date"
+id="investimentoData"
+>
+
+
+<button
+class="btn-primary"
+id="salvarInvestimento"
+>
+
+Salvar
+
+</button>
+
+
+<button
+class="btn-secondary"
+id="fecharInvestimento"
+>
+
+Cancelar
+
+</button>
+
+
+</div>
+
+
+</div>
+
+    <!-- CONSIGNADOS -->
+
+    <section class="panel">
+
+      <div class="panel-header">
+
+        <h3>
+          Consignados Pendentes
+        </h3>
+
+      </div>
+
+      <table>
+
+        <thead>
+
+          <tr>
+
+            <th>Cliente</th>
+            <th>Produto</th>
+            <th>Valor</th>
+            <th>Dias</th>
+
+          </tr>
+
+        </thead>
+
+        <tbody id="consignadosTable">
+
+        </tbody>
+
+      </table>
+
+    </section>
+
+    
+
+</main>
+
+</div>
+
+
+<!-- ==================================================
+     MODAL NOVA CONTA
+================================================== -->
+
+<div class="modal" id="modalConta">
+
+    <div class="modal-content">
+
+        <h2>
+            Nova Conta a Pagar
+        </h2>
+
+
+        <input 
+            type="text"
+            id="contaDescricao"
+            placeholder="Descrição"
+        >
+
+
+        <input 
+            type="text"
+            id="contaCategoria"
+            placeholder="Categoria"
+        >
+
+
+        <input 
+            type="number"
+            id="contaValor"
+            placeholder="Valor"
+        >
+
+
+        <input 
+            type="date"
+            id="contaVencimento"
+        >
+
+
+        <div class="modal-actions">
+
+            <button 
+                class="btn-primary"
+                id="salvarConta"
+            >
+                Salvar
+            </button>
+
+
+            <button 
+                class="btn-secondary"
+                id="fecharConta"
+            >
+                Cancelar
+            </button>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+
+<script src="../js/database.js"></script>
+
+<script src="../js/financeiro.js"></script>
+
+
+</body>
+
+</html>

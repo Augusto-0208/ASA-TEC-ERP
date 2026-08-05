@@ -1,0 +1,2732 @@
+/* =========================================================
+   RESET
+========================================================= */
+
+* {
+
+  margin: 0;
+
+  padding: 0;
+
+  box-sizing: border-box;
+
+}
+
+/* =========================================================
+   BODY
+========================================================= */
+
+body {
+
+  font-family: 'Segoe UI', sans-serif;
+
+  background: #f1f5f9;
+
+  color: #0f172a;
+
+}
+
+/* =========================================================
+   LAYOUT
+========================================================= */
+
+.layout {
+
+  display: flex;
+
+  min-height: 100vh;
+
+}
+
+/* ======================================
+   SIDEBAR
+====================================== */
+
+.sidebar {
+
+  width: 90px;
+
+  min-height: 100vh;
+
+  background: #0f172a;
+
+  color: white;
+
+  padding: 24px 18px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: space-between;
+
+  position: sticky;
+
+  top: 0;
+
+  transition: width 0.3s ease;
+
+  overflow-x: hidden;
+
+  overflow-y: auto;
+
+  z-index: 1000;
+
+}
+
+/* ======================================
+   SIDEBAR HOVER
+====================================== */
+
+.sidebar:hover {
+
+  width: 260px;
+
+}
+
+/* ======================================
+   SCROLLBAR
+====================================== */
+
+.sidebar::-webkit-scrollbar {
+
+  width: 6px;
+
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+
+  background: rgba(255,255,255,0.2);
+
+  border-radius: 999px;
+
+}
+/* =========================================================
+   LOGO
+========================================================= */
+
+.logo {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 18px;
+
+  margin-bottom: 40px;
+
+}
+
+.logo i {
+
+  font-size: 30px;
+
+  color: #3b82f6;
+
+  min-width: 40px;
+
+}
+
+.logo h1 {
+
+  color: white;
+
+  font-size: 24px;
+
+}
+
+.logo p {
+
+  color: #94a3b8;
+
+  font-size: 13px;
+
+}
+
+/* =========================================================
+   SIDEBAR TEXT
+========================================================= */
+
+.sidebar-text {
+
+  opacity: 0;
+
+  transition: 0.2s;
+
+  white-space: nowrap;
+
+}
+
+.sidebar:hover .sidebar-text {
+
+  opacity: 1;
+
+}
+
+/* ======================================
+   MENU
+====================================== */
+
+.menu {
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 10px;
+
+  margin-top: 35px;
+
+}
+
+/* ======================================
+   LINKS MENU
+====================================== */
+
+.menu a {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 16px;
+
+  color: #cbd5e1;
+
+  text-decoration: none;
+
+  padding: 15px 18px;
+
+  border-radius: 16px;
+
+  transition: 0.2s;
+
+  white-space: nowrap;
+
+  overflow: hidden;
+
+}
+
+/* ======================================
+   HOVER
+====================================== */
+
+.menu a:hover {
+
+  background: rgba(255,255,255,0.08);
+
+  color: white;
+
+}
+
+/* ======================================
+   ACTIVE
+====================================== */
+
+.menu a.active {
+
+  background: #2563eb;
+
+  color: white;
+
+}
+
+/* ======================================
+   ÍCONES
+====================================== */
+
+.menu i {
+
+  min-width: 24px;
+
+  font-size: 18px;
+
+  text-align: center;
+
+}
+
+/* ======================================
+   TEXTO MENU
+====================================== */
+
+.menu span {
+
+  opacity: 0;
+
+  transition: 0.2s;
+
+}
+
+/* ======================================
+   MOSTRAR TEXTO
+====================================== */
+
+.sidebar:hover .menu span {
+
+  opacity: 1;
+
+}
+/* =========================================================
+   SIDEBAR FOOTER
+========================================================= */
+
+.sidebar-footer {
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 12px;
+
+}
+
+/* =========================================================
+   BUTTONS
+========================================================= */
+
+.instagram-btn,
+.whatsapp-btn,
+.login-btn {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 14px;
+
+  padding: 14px;
+
+  border-radius: 14px;
+
+  color: white;
+
+  text-decoration: none;
+
+  border: none;
+
+  cursor: pointer;
+
+  transition: 0.2s;
+
+  font-size: 14px;
+
+}
+
+.instagram-btn {
+
+  background: #e1306c;
+
+}
+
+.instagram-btn:hover {
+
+  background: #be185d;
+
+}
+
+.whatsapp-btn {
+
+  background: #22c55e;
+
+}
+
+.whatsapp-btn:hover {
+
+  background: #16a34a;
+
+}
+
+.login-btn {
+
+  background: #2563eb;
+
+}
+
+.login-btn:hover {
+
+  background: #1d4ed8;
+
+}
+
+/* =========================================================
+   MAIN
+========================================================= */
+
+.main {
+
+  flex: 1;
+
+  margin-left: 85px;
+
+  padding: 35px;
+
+  transition: 0.3s;
+
+}
+
+.sidebar:hover ~ .main {
+
+  margin-left: 260px;
+
+}
+
+/* =========================================================
+   TOPBAR
+========================================================= */
+
+.topbar {
+
+  margin-bottom: 30px;
+
+}
+
+.topbar h2 {
+
+  font-size: 40px;
+
+  font-weight: 700;
+
+}
+
+.topbar p {
+
+  color: #64748b;
+
+  margin-top: 5px;
+
+}
+
+/* =========================================================
+   PANEL
+========================================================= */
+
+.panel {
+
+  background: white;
+
+  border-radius: 24px;
+
+  padding: 30px;
+
+  margin-bottom: 25px;
+
+  box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+
+}
+
+/* =========================================================
+   PANEL HEADER
+========================================================= */
+
+.panel-header {
+
+  margin-bottom: 25px;
+
+}
+
+.panel-header h3 {
+
+  font-size: 24px;
+
+}
+
+/* =========================================================
+   FORM GRID
+========================================================= */
+
+.form-grid {
+
+  display: grid;
+
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+
+  gap: 22px;
+
+  margin-bottom: 25px;
+
+}
+
+/* =========================================================
+   INPUT GROUP
+========================================================= */
+
+.input-group {
+
+  display: flex;
+
+  flex-direction: column;
+
+}
+
+/* =========================================================
+   LABEL
+========================================================= */
+
+.input-group label {
+
+  margin-bottom: 10px;
+
+  font-size: 14px;
+
+  font-weight: 600;
+
+  color: #334155;
+
+}
+
+/* =========================================================
+   INPUTS
+========================================================= */
+
+.input-group input,
+.input-group select {
+
+  width: 100%;
+
+  padding: 15px;
+
+  border-radius: 14px;
+
+  border: 1px solid #dbe2ea;
+
+  background: #f8fafc;
+
+  font-size: 15px;
+
+  transition: 0.2s;
+
+}
+
+/* =========================================================
+   INPUT FOCUS
+========================================================= */
+
+.input-group input:focus,
+.input-group select:focus {
+
+  outline: none;
+
+  border-color: #2563eb;
+
+  background: white;
+
+}
+
+/* =========================================================
+   BUTTON PRIMARY
+========================================================= */
+
+.btn-primary {
+
+  background: #2563eb;
+
+  color: white;
+
+  border: none;
+
+  padding: 15px 22px;
+
+  border-radius: 14px;
+
+  cursor: pointer;
+
+  font-size: 15px;
+
+  font-weight: 600;
+
+  transition: 0.2s;
+
+}
+
+.btn-primary:hover {
+
+  background: #1d4ed8;
+
+}
+
+/* =========================================================
+   TABLE
+========================================================= */
+
+table {
+
+  width: 100%;
+
+  border-collapse: collapse;
+
+}
+
+/* =========================================================
+   TABLE HEAD
+========================================================= */
+
+thead {
+
+  background: #f8fafc;
+
+}
+
+/* =========================================================
+   TABLE TH
+========================================================= */
+
+th {
+
+  padding: 18px;
+
+  text-align: left;
+
+  color: #64748b;
+
+  font-size: 14px;
+
+}
+
+/* =========================================================
+   TABLE TD
+========================================================= */
+
+td {
+
+  padding: 18px;
+
+  border-top: 1px solid #e2e8f0;
+
+}
+
+/* =========================================================
+   TABLE HOVER
+========================================================= */
+
+tbody tr:hover {
+
+  background: #f8fafc;
+
+}
+
+/* =========================================================
+   STATUS
+========================================================= */
+
+.status {
+
+  padding: 8px 14px;
+
+  border-radius: 999px;
+
+  color: white;
+
+  font-size: 13px;
+
+  font-weight: 600;
+
+}
+
+.producao {
+
+  background: #2563eb;
+
+}
+
+.entregue {
+
+  background: #10b981;
+
+}
+
+.baixo {
+
+  background: #f59e0b;
+
+}
+
+.faltando {
+
+  background: #ef4444;
+
+}
+
+/* =========================================================
+   STATUS SELECT
+========================================================= */
+
+.status-select {
+
+  padding: 10px 14px;
+
+  border-radius: 12px;
+
+  border: 1px solid #dbe2ea;
+
+  background: white;
+
+}
+
+/* =========================================================
+   RESPONSIVO
+========================================================= */
+
+@media (max-width: 900px) {
+
+  .main {
+
+    padding: 20px;
+
+  }
+
+}
+
+/* =========================================
+   TABELA PREMIUM
+========================================= */
+
+tbody tr {
+
+  transition: 0.2s;
+
+}
+
+tbody tr:hover {
+
+  transform: scale(1.01);
+
+  background: #f8fafc;
+
+}
+
+/* =========================================
+   DELETE BUTTON
+========================================= */
+
+.btn-delete {
+
+  width: 38px;
+
+  height: 38px;
+
+  border: none;
+
+  border-radius: 12px;
+
+  background: #ef4444;
+
+  color: white;
+
+  cursor: pointer;
+
+  transition: 0.2s;
+
+}
+
+.btn-delete:hover {
+
+  background: #dc2626;
+
+  transform: scale(1.05);
+
+}
+
+/* =========================================
+   DATALIST INPUT
+========================================= */
+
+input[list] {
+
+  background: white;
+
+}
+
+/* ======================================
+   DASHBOARD CARDS
+====================================== */
+
+.dashboard-cards {
+
+  display: grid;
+
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+
+  gap: 20px;
+
+  margin-bottom: 25px;
+
+}
+
+/* ======================================
+   CARD
+====================================== */
+
+.dashboard-card {
+
+  background: white;
+
+  padding: 25px;
+
+  border-radius: 24px;
+
+  box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+
+}
+
+.dashboard-card span {
+
+  color: #64748b;
+
+  font-size: 14px;
+
+}
+
+.dashboard-card h3 {
+
+  margin-top: 10px;
+
+  font-size: 32px;
+
+}
+
+/* ======================================
+   DASHBOARD GRID
+====================================== */
+
+.dashboard-grid {
+
+  display: grid;
+
+  grid-template-columns: 2fr 1fr;
+
+  gap: 25px;
+
+}
+
+/* ======================================
+   ALERTA
+====================================== */
+
+.alerta-box {
+
+  background: #fef2f2;
+
+  color: #b91c1c;
+
+  padding: 14px;
+
+  border-radius: 14px;
+
+  margin-bottom: 10px;
+
+  font-weight: 600;
+
+}
+
+/* ======================================
+   RESPONSIVO
+====================================== */
+
+@media (max-width: 1000px) {
+
+  .dashboard-grid {
+
+    grid-template-columns: 1fr;
+
+  }
+
+}
+
+/* ======================================
+   VIP CARD
+====================================== */
+
+.vip-card {
+
+  background: #f8fafc;
+
+  border-radius: 18px;
+
+  padding: 18px;
+
+  margin-bottom: 14px;
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+}
+
+.vip-card strong {
+
+  font-size: 15px;
+
+}
+
+.vip-card span {
+
+  color: #2563eb;
+
+  font-weight: 700;
+
+}
+
+/* ======================================
+   CLIENTES GRID
+====================================== */
+
+.clientes-grid {
+
+  display: grid;
+
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+
+  gap: 24px;
+
+}
+
+/* ======================================
+   CLIENTE CARD
+====================================== */
+
+.cliente-card {
+
+  background: white;
+
+  border-radius: 24px;
+
+  padding: 25px;
+
+  text-align: center;
+
+  box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+
+}
+
+/* ======================================
+   FOTO
+====================================== */
+
+.cliente-foto {
+
+  width: 120px;
+
+  height: 120px;
+
+  border-radius: 50%;
+
+  object-fit: cover;
+
+  margin-bottom: 15px;
+
+}
+
+/* ======================================
+   TOTAL
+====================================== */
+
+.cliente-total {
+
+  margin: 18px 0;
+
+  font-size: 24px;
+
+  font-weight: bold;
+
+  color: #2563eb;
+
+}
+
+/* ======================================
+   MODAL
+====================================== */
+
+.modal {
+
+  position: fixed;
+
+  top: 0;
+  left: 0;
+
+  width: 100%;
+
+  height: 100%;
+
+  background: rgba(0,0,0,0.5);
+
+  display: none;
+
+  justify-content: center;
+
+  align-items: center;
+
+  z-index: 9999;
+
+}
+
+/* ======================================
+   MODAL CONTENT
+====================================== */
+
+.modal-content {
+
+  background: white;
+
+  width: 600px;
+
+  max-width: 90%;
+
+  border-radius: 24px;
+
+  padding: 30px;
+
+}
+
+/* ======================================
+   MODAL HEADER
+====================================== */
+
+.modal-header {
+
+  display: flex;
+
+  justify-content: space-between;
+
+  margin-bottom: 20px;
+
+}
+
+/* ======================================
+   PERFIL FOTO
+====================================== */
+
+.perfil-foto {
+
+  width: 140px;
+
+  height: 140px;
+
+  border-radius: 50%;
+
+  object-fit: cover;
+
+  margin-bottom: 20px;
+
+}
+
+/* ======================================
+   TOOLBAR CLIENTES
+====================================== */
+
+.clientes-toolbar {
+
+  display: flex;
+
+  gap: 20px;
+
+  margin-bottom: 25px;
+
+}
+
+.clientes-toolbar input,
+.clientes-toolbar select {
+
+  padding: 14px;
+
+  border-radius: 14px;
+
+  border: 1px solid #dbe2ea;
+
+  background: white;
+
+  min-width: 260px;
+
+}
+
+/* ======================================
+   GRID CLIENTES
+====================================== */
+
+.clientes-grid {
+
+  display: grid;
+
+  grid-template-columns: repeat(4, 1fr);
+
+  gap: 24px;
+
+}
+
+/* ======================================
+   CLIENTE CARD
+====================================== */
+
+.cliente-card {
+
+  background: white;
+
+  border-radius: 24px;
+
+  padding: 24px;
+
+  text-align: center;
+
+  min-height: 420px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: space-between;
+
+  box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+
+  transition: 0.2s;
+
+}
+
+.cliente-card:hover {
+
+  transform: translateY(-5px);
+
+}
+
+/* ======================================
+   FOTO CLIENTE
+====================================== */
+
+.cliente-foto {
+
+  width: 120px;
+
+  height: 120px;
+
+  border-radius: 50%;
+
+  object-fit: cover;
+
+  margin: 0 auto 18px;
+
+}
+
+/* ======================================
+   TOTAL CLIENTE
+====================================== */
+
+.cliente-total {
+
+  margin: 18px 0;
+
+  font-size: 24px;
+
+  font-weight: bold;
+
+  color: #2563eb;
+
+}
+
+/* ======================================
+   PERFIL
+====================================== */
+
+.perfil-topo {
+
+  display: flex;
+
+  gap: 30px;
+
+  align-items: center;
+
+  margin-bottom: 30px;
+
+}
+
+.perfil-stats {
+
+  display: grid;
+
+  grid-template-columns: repeat(2, 1fr);
+
+  gap: 20px;
+
+}
+
+.perfil-box {
+
+  background: #f8fafc;
+
+  border-radius: 18px;
+
+  padding: 20px;
+
+}
+
+.perfil-box span {
+
+  display: block;
+
+  margin-bottom: 10px;
+
+  color: #64748b;
+
+}
+
+.perfil-box strong {
+
+  font-size: 26px;
+
+  color: #2563eb;
+
+}
+
+/* ======================================
+   RESPONSIVO
+====================================== */
+
+@media (max-width: 1400px) {
+
+  .clientes-grid {
+
+    grid-template-columns: repeat(3, 1fr);
+
+  }
+
+}
+
+@media (max-width: 1100px) {
+
+  .clientes-grid {
+
+    grid-template-columns: repeat(2, 1fr);
+
+  }
+
+}
+
+@media (max-width: 700px) {
+
+  .clientes-grid {
+
+    grid-template-columns: 1fr;
+
+  }
+
+}
+
+/* ======================================
+   PERFIL HEADER
+====================================== */
+
+.perfil-header {
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  margin-bottom: 30px;
+
+  padding-bottom: 20px;
+
+  border-bottom: 1px solid #e2e8f0;
+
+}
+
+/* ======================================
+   PERFIL LEFT
+====================================== */
+
+.perfil-left {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 20px;
+
+}
+
+/* ======================================
+   FOTO GRANDE
+====================================== */
+
+.perfil-foto-grande {
+
+  width: 120px;
+
+  height: 120px;
+
+  border-radius: 50%;
+
+  object-fit: cover;
+
+  border: 5px solid #f1f5f9;
+
+}
+
+/* ======================================
+   PERFIL GRID
+====================================== */
+
+.perfil-grid {
+
+  display: grid;
+
+  grid-template-columns: 2fr 1fr;
+
+  gap: 24px;
+
+  margin-bottom: 24px;
+
+}
+
+/* ======================================
+   PERFIL CARD
+====================================== */
+
+.perfil-card {
+
+  background: #f8fafc;
+
+  border-radius: 24px;
+
+  padding: 24px;
+
+}
+
+/* ======================================
+   PERFIL FORM
+====================================== */
+
+.perfil-form {
+
+  display: grid;
+
+  gap: 16px;
+
+}
+
+.perfil-form input {
+
+  padding: 14px;
+
+  border-radius: 14px;
+
+  border: 1px solid #dbe2ea;
+
+  background: white;
+
+}
+
+/* ======================================
+   MÉTRICAS
+====================================== */
+
+.perfil-metricas {
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 20px;
+
+}
+
+.perfil-metrica {
+
+  background: white;
+
+  border-radius: 18px;
+
+  padding: 20px;
+
+}
+
+.perfil-metrica span {
+
+  display: block;
+
+  margin-bottom: 10px;
+
+  color: #64748b;
+
+}
+
+.perfil-metrica strong {
+
+  font-size: 28px;
+
+  color: #2563eb;
+
+}
+
+/* ======================================
+   HISTÓRICO
+====================================== */
+
+.historico-card {
+
+  margin-top: 20px;
+
+}
+
+/* ======================================
+   PEDIDO HISTÓRICO
+====================================== */
+
+.pedido-historico {
+
+  background: white;
+
+  border-radius: 18px;
+
+  padding: 18px;
+
+  margin-top: 14px;
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+}
+
+.pedido-historico span {
+
+  font-weight: bold;
+
+  color: #2563eb;
+
+}
+
+/* ======================================
+   RESPONSIVO
+====================================== */
+
+@media (max-width: 900px) {
+
+  .perfil-grid {
+
+    grid-template-columns: 1fr;
+
+  }
+
+}
+
+/* ======================================
+   PERFIL INPUT GROUP
+====================================== */
+
+.perfil-input-group {
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 8px;
+
+}
+
+/* ======================================
+   LABEL PERFIL
+====================================== */
+
+.perfil-input-group label {
+
+  font-size: 14px;
+
+  font-weight: 600;
+
+  color: #334155;
+
+}
+
+/* ======================================
+   CLIENTE TIPO
+====================================== */
+
+.cliente-tipo {
+
+  display: inline-block;
+
+  padding: 6px 14px;
+
+  border-radius: 999px;
+
+  background: #eff6ff;
+
+  color: #2563eb;
+
+  font-size: 13px;
+
+  font-weight: 600;
+
+  margin-top: 10px;
+
+}
+
+/* ======================================
+   TEXTAREA
+====================================== */
+
+textarea {
+
+  padding: 14px;
+
+  border-radius: 14px;
+
+  border: 1px solid #dbe2ea;
+
+  resize: vertical;
+
+  min-height: 100px;
+
+}
+
+/* ======================================
+   NOVO CLIENTE CARD
+====================================== */
+
+.novo-cliente-card {
+
+  background: white;
+
+  border-radius: 30px;
+
+  padding: 35px;
+
+  margin-bottom: 30px;
+
+  box-shadow: 0 10px 40px rgba(0,0,0,0.05);
+
+}
+
+/* ======================================
+   HEADER
+====================================== */
+
+.novo-cliente-header {
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  margin-bottom: 35px;
+
+}
+
+.novo-cliente-header h2 {
+
+  font-size: 28px;
+
+  margin-bottom: 8px;
+
+}
+
+.novo-cliente-header p {
+
+  color: #64748b;
+
+}
+
+/* ======================================
+   ÍCONE
+====================================== */
+
+.novo-cliente-icon {
+
+  width: 70px;
+
+  height: 70px;
+
+  border-radius: 20px;
+
+  background: #eff6ff;
+
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+
+  font-size: 28px;
+
+  color: #2563eb;
+
+}
+
+/* ======================================
+   GRID
+====================================== */
+
+.novo-cliente-grid {
+
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: 30px;
+
+}
+
+/* ======================================
+   COLUNA
+====================================== */
+
+.novo-cliente-col {
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 20px;
+
+}
+
+/* ======================================
+   INPUT GROUP
+====================================== */
+
+.input-group {
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 8px;
+
+}
+
+.input-group label {
+
+  font-size: 14px;
+
+  font-weight: 600;
+
+  color: #334155;
+
+}
+
+/* ======================================
+   INPUTS
+====================================== */
+
+.input-group input,
+.input-group select,
+.input-group textarea {
+
+  padding: 15px;
+
+  border-radius: 16px;
+
+  border: 1px solid #dbe2ea;
+
+  background: #f8fafc;
+
+  font-size: 15px;
+
+  transition: 0.2s;
+
+}
+
+.input-group input:focus,
+.input-group select:focus,
+.input-group textarea:focus {
+
+  border-color: #2563eb;
+
+  background: white;
+
+  outline: none;
+
+}
+
+/* ======================================
+   OBS
+====================================== */
+
+.observacoes-group {
+
+  margin-top: 25px;
+
+}
+
+/* ======================================
+   TEXTAREA
+====================================== */
+
+textarea {
+
+  resize: vertical;
+
+  min-height: 120px;
+
+}
+
+/* ======================================
+   BOTÃO
+====================================== */
+
+.salvar-cliente-btn {
+
+  margin-top: 30px;
+
+  width: 100%;
+
+  height: 58px;
+
+  font-size: 16px;
+
+  border-radius: 18px;
+
+}
+
+/* ======================================
+   RESPONSIVO
+====================================== */
+
+@media (max-width: 900px) {
+
+  .novo-cliente-grid {
+
+    grid-template-columns: 1fr;
+
+  }
+
+}
+
+/* ======================================
+   MODAL PERFIL CLIENTE
+====================================== */
+
+#modalCliente {
+
+  display: none;
+
+  position: fixed;
+
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 100%;
+
+  background: rgba(15, 23, 42, 0.7);
+
+  backdrop-filter: blur(6px);
+
+  justify-content: center;
+
+  align-items: center;
+
+  z-index: 9999;
+
+  padding: 30px;
+
+}
+
+/* ======================================
+   CONTEÚDO MODAL
+====================================== */
+
+#modalCliente .modal-content {
+
+  width: 100%;
+
+  max-width: 1200px;
+
+  max-height: 90vh;
+
+  overflow-y: auto;
+
+  background: #ffffff;
+
+  border-radius: 30px;
+
+  padding: 35px;
+
+  position: relative;
+
+  box-shadow: 0 20px 80px rgba(0,0,0,0.2);
+
+}
+
+/* ======================================
+   HEADER PERFIL
+====================================== */
+
+.perfil-header {
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  gap: 30px;
+
+  padding-bottom: 25px;
+
+  border-bottom: 1px solid #e2e8f0;
+
+  margin-bottom: 30px;
+
+}
+
+/* ======================================
+   LEFT
+====================================== */
+
+.perfil-left {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 24px;
+
+}
+
+/* ======================================
+   FOTO
+====================================== */
+
+.perfil-foto-grande {
+
+  width: 140px;
+
+  height: 140px;
+
+  border-radius: 50%;
+
+  object-fit: cover;
+
+  border: 6px solid #eff6ff;
+
+  box-shadow: 0 10px 30px rgba(37,99,235,0.15);
+
+}
+
+/* ======================================
+   TEXTOS PERFIL
+====================================== */
+
+.perfil-left h2 {
+
+  font-size: 32px;
+
+  margin-bottom: 10px;
+
+  color: #0f172a;
+
+}
+
+.perfil-left p {
+
+  color: #64748b;
+
+  font-size: 15px;
+
+}
+
+/* ======================================
+   GRID PERFIL
+====================================== */
+
+.perfil-grid {
+
+  display: grid;
+
+  grid-template-columns: 2fr 1fr;
+
+  gap: 24px;
+
+  margin-bottom: 25px;
+
+}
+
+/* ======================================
+   CARD PERFIL
+====================================== */
+
+.perfil-card {
+
+  background: #f8fafc;
+
+  border-radius: 26px;
+
+  padding: 28px;
+
+  border: 1px solid #e2e8f0;
+
+}
+
+/* ======================================
+   TITULOS
+====================================== */
+
+.perfil-card h3 {
+
+  margin-bottom: 25px;
+
+  font-size: 22px;
+
+  color: #0f172a;
+
+}
+
+/* ======================================
+   FORM PERFIL
+====================================== */
+
+.perfil-form {
+
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: 20px;
+
+}
+
+/* ======================================
+   INPUT GROUP
+====================================== */
+
+.perfil-input-group {
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 8px;
+
+}
+
+.perfil-input-group label {
+
+  font-size: 14px;
+
+  font-weight: 600;
+
+  color: #334155;
+
+}
+
+/* ======================================
+   INPUTS
+====================================== */
+
+.perfil-input-group input,
+.perfil-input-group textarea {
+
+  background: white;
+
+  border: 1px solid #dbe2ea;
+
+  border-radius: 16px;
+
+  padding: 14px;
+
+  font-size: 15px;
+
+  transition: 0.2s;
+
+}
+
+.perfil-input-group input:focus,
+.perfil-input-group textarea:focus {
+
+  border-color: #2563eb;
+
+  outline: none;
+
+  box-shadow: 0 0 0 4px rgba(37,99,235,0.08);
+
+}
+
+/* ======================================
+   TEXTAREA
+====================================== */
+
+.perfil-input-group textarea {
+
+  min-height: 120px;
+
+  resize: vertical;
+
+}
+
+/* ======================================
+   MÉTRICAS
+====================================== */
+
+.perfil-metricas {
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 20px;
+
+}
+
+/* ======================================
+   BOX MÉTRICA
+====================================== */
+
+.perfil-metrica {
+
+  background: white;
+
+  border-radius: 20px;
+
+  padding: 24px;
+
+  border: 1px solid #e2e8f0;
+
+}
+
+.perfil-metrica span {
+
+  display: block;
+
+  margin-bottom: 10px;
+
+  color: #64748b;
+
+  font-size: 14px;
+
+}
+
+.perfil-metrica strong {
+
+  font-size: 30px;
+
+  color: #2563eb;
+
+}
+
+/* ======================================
+   HISTÓRICO
+====================================== */
+
+.historico-card {
+
+  margin-top: 10px;
+
+}
+
+/* ======================================
+   PEDIDO HISTÓRICO
+====================================== */
+
+.pedido-historico {
+
+  background: white;
+
+  border: 1px solid #e2e8f0;
+
+  border-radius: 18px;
+
+  padding: 18px 20px;
+
+  margin-top: 14px;
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  transition: 0.2s;
+
+}
+
+.pedido-historico:hover {
+
+  transform: translateY(-2px);
+
+  box-shadow: 0 8px 24px rgba(0,0,0,0.05);
+
+}
+
+.pedido-historico strong {
+
+  font-size: 16px;
+
+  color: #0f172a;
+
+}
+
+.pedido-historico p {
+
+  color: #64748b;
+
+  margin-top: 4px;
+
+}
+
+.pedido-historico span {
+
+  font-size: 18px;
+
+  font-weight: bold;
+
+  color: #2563eb;
+
+}
+
+/* ======================================
+   BOTÃO FECHAR
+====================================== */
+
+.close-btn {
+
+  border: none;
+
+  background: #f1f5f9;
+
+  width: 42px;
+
+  height: 42px;
+
+  border-radius: 12px;
+
+  cursor: pointer;
+
+  font-size: 18px;
+
+  transition: 0.2s;
+
+}
+
+.close-btn:hover {
+
+  background: #e2e8f0;
+
+}
+
+/* ======================================
+   MODAL NOVO CLIENTE
+====================================== */
+
+#modalNovoCliente {
+
+  display: none;
+
+  position: fixed;
+
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 100%;
+
+  background: rgba(15,23,42,0.7);
+
+  backdrop-filter: blur(6px);
+
+  justify-content: center;
+
+  align-items: center;
+
+  z-index: 9999;
+
+  padding: 30px;
+
+}
+
+.modal-cliente {
+
+  width: 100%;
+
+  max-width: 1100px;
+
+  max-height: 90vh;
+
+  overflow-y: auto;
+
+  background: white;
+
+  border-radius: 30px;
+
+  padding: 35px;
+
+  box-shadow: 0 20px 80px rgba(0,0,0,0.2);
+
+}
+
+/* ======================================
+   RESPONSIVO
+====================================== */
+
+@media (max-width: 950px) {
+
+  .perfil-grid {
+
+    grid-template-columns: 1fr;
+
+  }
+
+  .perfil-form {
+
+    grid-template-columns: 1fr;
+
+  }
+
+}
+
+@media (max-width: 700px) {
+
+  .perfil-header {
+
+    flex-direction: column;
+
+    align-items: flex-start;
+
+  }
+
+  .perfil-left {
+
+    flex-direction: column;
+
+    align-items: flex-start;
+
+  }
+
+}
+
+```css id="d6b3gq"
+/* ======================================
+   FIX SIDEBAR
+====================================== */
+
+.sidebar {
+
+  overflow-y: auto !important;
+
+  overflow-x: hidden;
+
+}
+
+.sidebar:hover {
+
+  width: 260px;
+
+}
+
+/* ======================================
+   MENU FIX
+====================================== */
+
+.menu {
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 10px;
+
+}
+
+.menu a {
+
+  min-height: 52px;
+
+  display: flex;
+
+  align-items: center;
+
+}
+
+.menu i {
+
+  min-width: 24px;
+
+  text-align: center;
+
+}
+
+/* ======================================
+   TEXTO MENU
+====================================== */
+
+.menu span {
+
+  opacity: 0;
+
+  transition: 0.2s;
+
+  white-space: nowrap;
+
+}
+
+.sidebar:hover .menu span {
+
+  opacity: 1;
+
+}
+
+/* ======================================
+   SOCIAL FIX
+====================================== */
+
+.social {
+
+  margin-top: 30px;
+
+}
+
+.social h3,
+.social a {
+
+  opacity: 0;
+
+  transition: 0.2s;
+
+  white-space: nowrap;
+
+}
+
+.sidebar:hover .social h3,
+.sidebar:hover .social a {
+
+  opacity: 1;
+
+}
+
+/* ======================================
+   CLIENTES GRID
+====================================== */
+
+.clientes-grid {
+
+  display: grid;
+
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+
+  gap: 24px;
+
+}
+
+/* ======================================
+   CLIENTE CARD
+====================================== */
+
+.cliente-card {
+
+  background: white;
+
+  border-radius: 24px;
+
+  padding: 24px;
+
+  box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+
+  transition: 0.2s;
+
+}
+
+.cliente-card:hover {
+
+  transform: translateY(-5px);
+
+}
+
+/* ======================================
+   FOTO CLIENTE
+====================================== */
+
+.cliente-foto {
+
+  width: 110px;
+
+  height: 110px;
+
+  border-radius: 50%;
+
+  object-fit: cover;
+
+  margin: 0 auto 18px;
+
+  display: block;
+
+}
+
+/* ======================================
+   TOOLBAR CLIENTES
+====================================== */
+
+.clientes-toolbar {
+
+  display: flex;
+
+  gap: 18px;
+
+  margin-bottom: 25px;
+
+  flex-wrap: wrap;
+
+}
+
+.clientes-toolbar input,
+.clientes-toolbar select {
+
+  height: 50px;
+
+  padding: 0 16px;
+
+  border-radius: 14px;
+
+  border: 1px solid #dbe2ea;
+
+  background: white;
+
+}
+
+/* ======================================
+   BOTÃO NOVO CLIENTE
+====================================== */
+
+.novo-cliente-btn {
+
+  height: 54px;
+
+  border-radius: 16px;
+
+  padding: 0 22px;
+
+}
+
+/* ======================================
+   MODAL
+====================================== */
+
+.modal {
+
+  display: none;
+
+  position: fixed;
+
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 100%;
+
+  background: rgba(15,23,42,0.7);
+
+  backdrop-filter: blur(6px);
+
+  justify-content: center;
+
+  align-items: center;
+
+  z-index: 9999;
+
+  padding: 25px;
+
+}
+
+/* ======================================
+   MODAL CONTENT
+====================================== */
+
+.modal-content {
+
+  width: 100%;
+
+  max-width: 1200px;
+
+  max-height: 90vh;
+
+  overflow-y: auto;
+
+  background: white;
+
+  border-radius: 30px;
+
+  padding: 35px;
+
+  position: relative;
+
+}
+
+/* ======================================
+   MODAL CLIENTE
+====================================== */
+
+.modal-cliente {
+
+  max-width: 1100px;
+
+}
+
+/* ======================================
+   HEADER PERFIL
+====================================== */
+
+.perfil-header {
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  gap: 30px;
+
+  margin-bottom: 30px;
+
+  padding-bottom: 25px;
+
+  border-bottom: 1px solid #e2e8f0;
+
+}
+
+/* ======================================
+   PERFIL LEFT
+====================================== */
+
+.perfil-left {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 24px;
+
+}
+
+/* ======================================
+   FOTO PERFIL
+====================================== */
+
+.perfil-foto-grande {
+
+  width: 140px;
+
+  height: 140px;
+
+  border-radius: 50%;
+
+  object-fit: cover;
+
+  border: 5px solid #eff6ff;
+
+}
+
+/* ======================================
+   GRID PERFIL
+====================================== */
+
+.perfil-grid {
+
+  display: grid;
+
+  grid-template-columns: 2fr 1fr;
+
+  gap: 24px;
+
+}
+
+/* ======================================
+   CARD PERFIL
+====================================== */
+
+.perfil-card {
+
+  background: #f8fafc;
+
+  border-radius: 24px;
+
+  padding: 28px;
+
+  border: 1px solid #e2e8f0;
+
+}
+
+/* ======================================
+   FORM PERFIL
+====================================== */
+
+.perfil-form {
+
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: 20px;
+
+}
+
+/* ======================================
+   INPUT PERFIL
+====================================== */
+
+.perfil-input-group {
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 8px;
+
+}
+
+.perfil-input-group label {
+
+  font-size: 14px;
+
+  font-weight: 600;
+
+  color: #334155;
+
+}
+
+/* ======================================
+   INPUTS PERFIL
+====================================== */
+
+.perfil-input-group input,
+.perfil-input-group textarea {
+
+  padding: 14px;
+
+  border-radius: 16px;
+
+  border: 1px solid #dbe2ea;
+
+  background: white;
+
+}
+
+/* ======================================
+   MÉTRICAS
+====================================== */
+
+.perfil-metricas {
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 18px;
+
+}
+
+.perfil-metrica {
+
+  background: white;
+
+  border-radius: 20px;
+
+  padding: 22px;
+
+  border: 1px solid #e2e8f0;
+
+}
+
+.perfil-metrica strong {
+
+  display: block;
+
+  margin-top: 10px;
+
+  font-size: 28px;
+
+  color: #2563eb;
+
+}
+
+/* ======================================
+   HISTÓRICO
+====================================== */
+
+.pedido-historico {
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  background: white;
+
+  border: 1px solid #e2e8f0;
+
+  border-radius: 18px;
+
+  padding: 18px;
+
+  margin-top: 14px;
+
+}
+
+/* ======================================
+   CLOSE BTN
+====================================== */
+
+.close-btn {
+
+  position: absolute;
+
+  top: 20px;
+  right: 20px;
+
+  width: 42px;
+
+  height: 42px;
+
+  border: none;
+
+  border-radius: 12px;
+
+  background: #f1f5f9;
+
+  cursor: pointer;
+
+}
+
+/* ======================================
+   RESPONSIVO
+====================================== */
+
+@media (max-width: 950px) {
+
+  .perfil-grid {
+
+    grid-template-columns: 1fr;
+
+  }
+
+  .perfil-form {
+
+    grid-template-columns: 1fr;
+
+  }
+
+}
+
+@media (max-width: 700px) {
+
+  .perfil-header {
+
+    flex-direction: column;
+
+    align-items: flex-start;
+
+  }
+
+  .perfil-left {
+
+    flex-direction: column;
+
+    align-items: flex-start;
+
+  }
+
+}
+```

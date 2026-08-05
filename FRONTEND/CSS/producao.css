@@ -1,0 +1,306 @@
+/* ======================================
+VARIAVEIS
+====================================== */
+
+:root{
+--orcamento:#f59e0b;
+--desenvolvimento:#2563eb;
+--producao:#ef4444;
+--pronto:#10b981;
+--entregue:#6366f1;
+--receber:#ec4899;
+}
+
+/* ======================================
+KANBAN
+====================================== */
+
+.kanban{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(3, 1fr);
+
+    gap:20px;
+
+    width:100%;
+}
+
+/* ======================================
+COLUNAS
+====================================== */
+
+.kanban-column{
+
+    width:100%;
+
+    min-height:250px;
+
+    background:#ffffff;
+
+    border-radius:24px;
+
+    padding:15px;
+
+    box-shadow:
+    0 4px 20px rgba(0,0,0,.05);
+}
+
+/* ======================================
+TITULOS
+====================================== */
+
+.kanban-column h3{
+
+
+color:white;
+
+text-align:center;
+
+padding:14px;
+
+border-radius:16px;
+
+margin-bottom:15px;
+
+font-size:15px;
+
+font-weight:700;
+
+
+}
+
+.kanban-column.orcamento h3{
+background:var(--orcamento);
+}
+
+.kanban-column.desenvolvimento h3{
+background:var(--desenvolvimento);
+}
+
+.kanban-column.producao h3{
+background:var(--producao);
+}
+
+.kanban-column.pronto h3{
+background:var(--pronto);
+}
+
+.kanban-column.entregue h3{
+background:var(--entregue);
+}
+
+.kanban-column.receber h3{
+background:var(--receber);
+}
+
+/* ======================================
+CONTAINERS DOS CARDS
+====================================== */
+
+#orcamento,
+#desenvolvimento,
+#producao,
+#pronto,
+#entregue,
+#receber{
+
+
+display:flex;
+flex-direction:column;
+
+gap:12px;
+
+
+}
+
+/* ======================================
+CARDS
+====================================== */
+
+.card{
+
+
+padding:15px;
+
+border-radius:18px;
+
+border-left:6px solid transparent;
+
+transition:.2s;
+
+cursor:pointer;
+
+
+}
+
+.card:hover{
+
+
+transform:translateY(-3px);
+
+box-shadow:
+0 8px 25px rgba(0,0,0,.08);
+
+
+}
+
+.card strong{
+
+
+display:block;
+
+margin-bottom:8px;
+
+color:#0f172a;
+
+
+}
+
+.card p{
+
+
+color:#64748b;
+
+font-size:13px;
+
+margin-bottom:4px;
+
+
+}
+
+/* ======================================
+CORES DOS CARDS
+====================================== */
+
+.card.orcamento{
+background:#fff7ed;
+border-left-color:var(--orcamento);
+}
+
+.card.desenvolvimento{
+background:#eff6ff;
+border-left-color:var(--desenvolvimento);
+}
+
+.card.producao{
+background:#fef2f2;
+border-left-color:var(--producao);
+}
+
+.card.pronto{
+background:#ecfdf5;
+border-left-color:var(--pronto);
+}
+
+.card.entregue{
+background:#eef2ff;
+border-left-color:var(--entregue);
+}
+
+.card.receber{
+background:#fdf2f8;
+border-left-color:var(--receber);
+}
+
+/* ======================================
+SOCIAL
+====================================== */
+
+.social{
+padding-top:20px;
+border-top:1px solid rgba(255,255,255,.08);
+}
+
+.social h3{
+color:#cbd5e1;
+font-size:15px;
+margin-bottom:15px;
+
+
+opacity:0;
+transition:.3s;
+
+
+}
+
+.sidebar:hover .social h3{
+opacity:1;
+}
+
+/* ======================================
+INSTAGRAM
+====================================== */
+
+.instagram-link{
+display:flex;
+align-items:center;
+gap:12px;
+
+
+padding:14px;
+border-radius:16px;
+
+background:
+linear-gradient(
+135deg,
+#833ab4,
+#fd1d1d,
+#fcb045
+);
+
+color:white;
+text-decoration:none;
+
+font-weight:600;
+
+margin-bottom:10px;
+
+transition:.2s;
+
+
+}
+
+.instagram-link span{
+opacity:0;
+transition:.3s;
+}
+
+.sidebar:hover .instagram-link span{
+opacity:1;
+}
+
+/* ======================================
+WHATSAPP
+====================================== */
+
+.whatsapp-link{
+display:flex;
+align-items:center;
+gap:12px;
+
+
+padding:14px;
+border-radius:16px;
+
+background:#25D366;
+
+color:white;
+text-decoration:none;
+
+font-weight:600;
+
+transition:.2s;
+
+
+}
+
+.whatsapp-link span{
+opacity:0;
+transition:.3s;
+}
+
+.sidebar:hover .whatsapp-link span{
+opacity:1;
+}
