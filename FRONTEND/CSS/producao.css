@@ -1,306 +1,182 @@
-/* ======================================
-VARIAVEIS
-====================================== */
+/* ============================================================
+   BLOCO PRODUÇÃO - KANBAN
+============================================================ */
 
-:root{
---orcamento:#f59e0b;
---desenvolvimento:#2563eb;
---producao:#ef4444;
---pronto:#10b981;
---entregue:#6366f1;
---receber:#ec4899;
+/* BLOCO VARIÁVEIS DE CORES DAS COLUNAS */
+:root {
+  --orcamento: #f59e0b;
+  --desenvolvimento: #2563eb;
+  --producao: #ef4444;
+  --pronto: #10b981;
+  --entregue: #6366f1;
+  --receber: #ec4899;
 }
 
-/* ======================================
-KANBAN
-====================================== */
-
-.kanban{
-
-    display:grid;
-
-    grid-template-columns:
-    repeat(3, 1fr);
-
-    gap:20px;
-
-    width:100%;
+/* BLOCO KANBAN - GRID PRINCIPAL */
+.kanban {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  width: 100%;
+  margin-top: 10px;
 }
 
-/* ======================================
-COLUNAS
-====================================== */
-
-.kanban-column{
-
-    width:100%;
-
-    min-height:250px;
-
-    background:#ffffff;
-
-    border-radius:24px;
-
-    padding:15px;
-
-    box-shadow:
-    0 4px 20px rgba(0,0,0,.05);
+/* BLOCO COLUNAS */
+.kanban-column {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  padding: 16px;
+  box-shadow: var(--shadow);
+  min-height: 300px;
+  display: flex;
+  flex-direction: column;
+  transition: 0.2s;
 }
 
-/* ======================================
-TITULOS
-====================================== */
-
-.kanban-column h3{
-
-
-color:white;
-
-text-align:center;
-
-padding:14px;
-
-border-radius:16px;
-
-margin-bottom:15px;
-
-font-size:15px;
-
-font-weight:700;
-
-
+.kanban-column:hover {
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
 }
 
-.kanban-column.orcamento h3{
-background:var(--orcamento);
+/* BLOCO TÍTULO DA COLUNA */
+.kanban-column h3 {
+  color: white;
+  text-align: center;
+  padding: 12px 16px;
+  border-radius: 16px;
+  margin-bottom: 16px;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
 }
 
-.kanban-column.desenvolvimento h3{
-background:var(--desenvolvimento);
+.kanban-column h3 i {
+  font-size: 18px;
 }
 
-.kanban-column.producao h3{
-background:var(--producao);
+/* BLOCO CORES DAS COLUNAS */
+.kanban-column.orcamento h3 {
+  background: var(--orcamento);
+}
+.kanban-column.desenvolvimento h3 {
+  background: var(--desenvolvimento);
+}
+.kanban-column.producao h3 {
+  background: var(--producao);
+}
+.kanban-column.pronto h3 {
+  background: var(--pronto);
+}
+.kanban-column.entregue h3 {
+  background: var(--entregue);
+}
+.kanban-column.receber h3 {
+  background: var(--receber);
 }
 
-.kanban-column.pronto h3{
-background:var(--pronto);
-}
-
-.kanban-column.entregue h3{
-background:var(--entregue);
-}
-
-.kanban-column.receber h3{
-background:var(--receber);
-}
-
-/* ======================================
-CONTAINERS DOS CARDS
-====================================== */
-
+/* BLOCO CONTAINER DOS CARDS */
 #orcamento,
 #desenvolvimento,
 #producao,
 #pronto,
 #entregue,
-#receber{
-
-
-display:flex;
-flex-direction:column;
-
-gap:12px;
-
-
+#receber {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex: 1;
+  min-height: 100px;
 }
 
-/* ======================================
-CARDS
-====================================== */
-
-.card{
-
-
-padding:15px;
-
-border-radius:18px;
-
-border-left:6px solid transparent;
-
-transition:.2s;
-
-cursor:pointer;
-
-
+/* BLOCO CARD INDIVIDUAL */
+.card {
+  padding: 14px 16px;
+  border-radius: 18px;
+  border-left: 6px solid transparent;
+  background: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  transition: transform 0.2s, box-shadow 0.2s;
+  cursor: default;
 }
 
-.card:hover{
-
-
-transform:translateY(-3px);
-
-box-shadow:
-0 8px 25px rgba(0,0,0,.08);
-
-
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
 }
 
-.card strong{
-
-
-display:block;
-
-margin-bottom:8px;
-
-color:#0f172a;
-
-
+.card strong {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--text);
+  font-size: 15px;
+  font-weight: 600;
 }
 
-.card p{
-
-
-color:#64748b;
-
-font-size:13px;
-
-margin-bottom:4px;
-
-
+.card p {
+  color: var(--text-light);
+  font-size: 13px;
+  margin-bottom: 2px;
 }
 
-/* ======================================
-CORES DOS CARDS
-====================================== */
-
-.card.orcamento{
-background:#fff7ed;
-border-left-color:var(--orcamento);
+.card .card-valor {
+  font-weight: 600;
+  color: var(--primary);
+  font-size: 14px;
+  margin-top: 4px;
 }
 
-.card.desenvolvimento{
-background:#eff6ff;
-border-left-color:var(--desenvolvimento);
+/* BLOCO CORES DOS CARDS (borda esquerda) */
+.card.orcamento {
+  background: #fff7ed;
+  border-left-color: var(--orcamento);
+}
+.card.desenvolvimento {
+  background: #eff6ff;
+  border-left-color: var(--desenvolvimento);
+}
+.card.producao {
+  background: #fef2f2;
+  border-left-color: var(--producao);
+}
+.card.pronto {
+  background: #ecfdf5;
+  border-left-color: var(--pronto);
+}
+.card.entregue {
+  background: #eef2ff;
+  border-left-color: var(--entregue);
+}
+.card.receber {
+  background: #fdf2f8;
+  border-left-color: var(--receber);
 }
 
-.card.producao{
-background:#fef2f2;
-border-left-color:var(--producao);
+/* BLOCO MENSAGEM DE VAZIO */
+.empty-message {
+  color: var(--text-light);
+  font-size: 14px;
+  text-align: center;
+  padding: 30px 10px;
+  background: #f8fafc;
+  border-radius: 16px;
+  border: 1px dashed var(--border);
 }
 
-.card.pronto{
-background:#ecfdf5;
-border-left-color:var(--pronto);
+/* BLOCO RESPONSIVO */
+@media (max-width: 1200px) {
+  .kanban {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
-.card.entregue{
-background:#eef2ff;
-border-left-color:var(--entregue);
-}
-
-.card.receber{
-background:#fdf2f8;
-border-left-color:var(--receber);
-}
-
-/* ======================================
-SOCIAL
-====================================== */
-
-.social{
-padding-top:20px;
-border-top:1px solid rgba(255,255,255,.08);
-}
-
-.social h3{
-color:#cbd5e1;
-font-size:15px;
-margin-bottom:15px;
-
-
-opacity:0;
-transition:.3s;
-
-
-}
-
-.sidebar:hover .social h3{
-opacity:1;
-}
-
-/* ======================================
-INSTAGRAM
-====================================== */
-
-.instagram-link{
-display:flex;
-align-items:center;
-gap:12px;
-
-
-padding:14px;
-border-radius:16px;
-
-background:
-linear-gradient(
-135deg,
-#833ab4,
-#fd1d1d,
-#fcb045
-);
-
-color:white;
-text-decoration:none;
-
-font-weight:600;
-
-margin-bottom:10px;
-
-transition:.2s;
-
-
-}
-
-.instagram-link span{
-opacity:0;
-transition:.3s;
-}
-
-.sidebar:hover .instagram-link span{
-opacity:1;
-}
-
-/* ======================================
-WHATSAPP
-====================================== */
-
-.whatsapp-link{
-display:flex;
-align-items:center;
-gap:12px;
-
-
-padding:14px;
-border-radius:16px;
-
-background:#25D366;
-
-color:white;
-text-decoration:none;
-
-font-weight:600;
-
-transition:.2s;
-
-
-}
-
-.whatsapp-link span{
-opacity:0;
-transition:.3s;
-}
-
-.sidebar:hover .whatsapp-link span{
-opacity:1;
+@media (max-width: 700px) {
+  .kanban {
+    grid-template-columns: 1fr;
+  }
+  .kanban-column {
+    min-height: 200px;
+  }
 }

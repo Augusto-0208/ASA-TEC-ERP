@@ -1,774 +1,284 @@
-/* ======================================
-   HERO DASHBOARD
-====================================== */
+/* ============================================================
+   BLOCO DASHBOARD - ESTILOS EXCLUSIVOS
+============================================================ */
 
+/* BLOCO HERO */
 .hero-dashboard {
-
-  background: linear-gradient(
-    135deg,
-    #0f172a,
-    #1e293b
-  );
-
+  background: linear-gradient(135deg, #0f172a, #1e293b);
   border-radius: 30px;
-
   padding: 45px;
-
   color: white;
-
   display: flex;
-
   justify-content: space-between;
-
   align-items: center;
-
   margin-bottom: 30px;
-
-  box-shadow:
-    0 10px 30px rgba(0,0,0,.15);
-
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
 }
 
 .hero-badge {
-
-  background: rgba(255,255,255,.12);
-
-  padding: 8px 14px;
-
+  background: rgba(255, 255, 255, 0.12);
+  padding: 8px 16px;
   border-radius: 999px;
-
   font-size: 13px;
-
   font-weight: 600;
-
   display: inline-block;
-
   margin-bottom: 18px;
-
+  letter-spacing: 0.5px;
 }
 
 .hero-dashboard h2 {
-
   font-size: 42px;
-
+  font-weight: 700;
   margin-bottom: 12px;
-
 }
 
 .hero-dashboard p {
-
   color: #cbd5e1;
-
   max-width: 650px;
-
   line-height: 1.7;
-
+  font-size: 16px;
 }
 
-/* ======================================
-   LOGO
-====================================== */
-
-.logo {
-
-  display: flex;
-
-  align-items: center;
-
-  gap: 14px;
-
-}
-
-.logo-img {
-
-  width: 50px;
-
-  height: 50px;
-
-  object-fit: contain;
-
-}
-
-/* ======================================
-   CARDS
-====================================== */
-
+/* BLOCO CARDS DASHBOARD */
 .cards-dashboard {
-
   display: grid;
-
-  grid-template-columns:
-    repeat(4, 1fr);
-
+  grid-template-columns: repeat(4, 1fr);
   gap: 24px;
-
   margin-bottom: 30px;
-
 }
 
 .dashboard-card {
-
-  background: white;
-
-  border-radius: 24px;
-
+  background: var(--card-bg);
+  border-radius: var(--radius);
   padding: 24px;
-
   display: flex;
-
   justify-content: space-between;
-
   align-items: center;
-
-  box-shadow:
-    0 4px 24px rgba(0,0,0,.05);
-
-  transition: .2s;
-
+  box-shadow: var(--shadow);
+  transition: transform 0.2s, box-shadow 0.2s;
 }
 
 .dashboard-card:hover {
-
   transform: translateY(-4px);
-
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
 }
 
 .dashboard-card span {
-
   display: block;
-
-  color: #64748b;
-
+  color: var(--text-light);
   font-size: 14px;
-
 }
 
 .dashboard-card h3 {
-
   margin-top: 10px;
-
   font-size: 30px;
-
-  color: #0f172a;
-
+  font-weight: 700;
+  color: var(--text);
 }
 
 .dashboard-card i {
-
   width: 58px;
-
   height: 58px;
-
   border-radius: 16px;
-
   display: flex;
-
   align-items: center;
-
   justify-content: center;
-
   background: #eff6ff;
-
-  color: #2563eb;
-
-  font-size: 22px;
-
+  color: var(--primary);
+  font-size: 24px;
+  flex-shrink: 0;
 }
 
-/* ======================================
-   GRID
-====================================== */
-
+/* BLOCO GRID DASHBOARD */
 .dashboard-grid {
-
   display: grid;
-
-  grid-template-columns:
-    1fr 1fr;
-
+  grid-template-columns: 1fr 1fr;
   gap: 24px;
-
   margin-bottom: 24px;
-
 }
-
-/* ======================================
-   PANELS
-====================================== */
 
 .dashboard-panel {
-
-  background: white;
-
-  border-radius: 24px;
-
+  background: var(--card-bg);
+  border-radius: var(--radius);
   padding: 24px;
-
-  margin-bottom: 24px;
-
-  box-shadow:
-    0 4px 24px rgba(0,0,0,.05);
-
+  box-shadow: var(--shadow);
 }
 
 .panel-header {
-
   margin-bottom: 20px;
-
 }
 
 .panel-header h3 {
-
-  color: #0f172a;
-
+  color: var(--text);
   font-size: 22px;
-
+  font-weight: 600;
 }
 
-/* ======================================
-   CLIENTE DO MÊS
-====================================== */
-
+/* BLOCO CLIENTE DO MÊS */
 .cliente-mes-card {
-
-  background: linear-gradient(
-    135deg,
-    #2563eb,
-    #1d4ed8
-  );
-
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
   color: white;
-
   border-radius: 24px;
-
   padding: 30px;
-
   text-align: center;
-
 }
 
 .cliente-mes-foto {
-
   width: 90px;
-
   height: 90px;
-
   border-radius: 50%;
-
   object-fit: cover;
-
-  border: 4px solid rgba(255,255,255,.30);
-
+  border: 4px solid rgba(255, 255, 255, 0.3);
   margin-bottom: 15px;
-
 }
 
 .cliente-mes-card p {
-
-  color: rgba(255,255,255,.80);
-
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 14px;
 }
 
 .cliente-mes-card h2 {
-
-  margin-top: 10px;
-
-  margin-bottom: 10px;
-
+  margin: 10px 0;
   font-size: 28px;
-
+  font-weight: 700;
 }
 
 .cliente-mes-card strong {
-
   font-size: 24px;
-
+  font-weight: 700;
 }
 
-/* ======================================
-   CLIENTES VIP
-====================================== */
-
+/* BLOCO CLIENTES VIP */
 .vip-item {
-
   display: flex;
-
   align-items: center;
-
   justify-content: space-between;
-
-  padding: 20px;
-
+  padding: 18px 20px;
   border-radius: 22px;
-
-  background: linear-gradient(
-    135deg,
-    #2563eb,
-    #1d4ed8
-  );
-
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
   color: white;
-
   margin-bottom: 14px;
+  transition: transform 0.2s;
+}
 
+.vip-item:hover {
+  transform: translateX(4px);
 }
 
 .vip-left {
-
   display: flex;
-
   align-items: center;
-
   gap: 14px;
-
 }
 
 .vip-foto {
-
-  width: 55px;
-
-  height: 55px;
-
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
-
   object-fit: cover;
-
-  border: 3px solid rgba(255,255,255,.25);
-
+  border: 3px solid rgba(255, 255, 255, 0.25);
 }
 
 .vip-info strong {
-
   display: block;
-
   font-size: 16px;
-
 }
 
 .vip-info span {
-
-  color: rgba(255,255,255,.8);
-
+  color: rgba(255, 255, 255, 0.8);
   font-size: 13px;
-
 }
 
 .vip-valor {
-
   font-size: 18px;
-
-  font-weight: bold;
-
+  font-weight: 700;
 }
 
-/* ======================================
-   VENDAS MENSAIS
-====================================== */
-
-.vendas-mensais-horizontal {
-
-  display: grid;
-
-  grid-template-columns:
-    repeat(6, 1fr);
-
-  gap: 14px;
-
-}
-
-.mes-item {
-
-  background: #f8fafc;
-
-  border-radius: 18px;
-
-  padding: 18px;
-
-  text-align: center;
-
-  transition: .2s;
-
-}
-
-.mes-item:hover {
-
-  transform: translateY(-4px);
-
-}
-
-.mes-item span {
-
-  display: block;
-
-  margin-bottom: 10px;
-
-  color: #64748b;
-
-}
-
-.mes-item strong {
-
-  color: #0f172a;
-
-  font-size: 18px;
-
-}
-
-/* ======================================
-   PRÓXIMAS ENTREGAS
-====================================== */
-
-.pedido-recente {
-
+/* BLOCO PRÓXIMOS (entregas e acertos) */
+.pedido-recente,
+.acerto-item {
   display: flex;
-
   justify-content: space-between;
-
   align-items: center;
-
   gap: 15px;
-
   background: #f8fafc;
-
   border-radius: 18px;
-
-  padding: 16px;
-
+  padding: 16px 20px;
   margin-bottom: 12px;
-
+  transition: 0.2s;
 }
 
-.pedido-recente img {
+.pedido-recente:hover,
+.acerto-item:hover {
+  background: #f1f5f9;
+}
 
+.pedido-recente img,
+.acerto-item img {
   width: 50px;
-
   height: 50px;
-
   border-radius: 50%;
-
   object-fit: cover;
-
 }
 
 .pedido-recente-info strong {
-
   display: block;
-
   margin-bottom: 4px;
-
+  font-size: 15px;
 }
 
 .pedido-recente-info span {
-
-  color: #64748b;
-
+  color: var(--text-light);
   font-size: 14px;
-
-}
-
-/* ======================================
-   PRODUÇÃO
-====================================== */
-
-#impressoesProducao .pedido-recente {
-
-  border-left: 4px solid #2563eb;
-
-}
-
-/* ======================================
-   SOCIAL
-====================================== */
-
-.social {
-
-  padding-top: 20px;
-
-  margin-top: 20px;
-
-  border-top:
-    1px solid rgba(
-      255,
-      255,
-      255,
-      .08
-    );
-
-}
-
-.social h3 {
-
-  color: #cbd5e1;
-
-  font-size: 14px;
-
-  margin-bottom: 14px;
-
-  text-transform: uppercase;
-
-  letter-spacing: 1px;
-
-}
-
-/* ======================================
-   SOCIAL PREMIUM
-====================================== */
-
-.social {
-
-  margin-top: 25px;
-
-}
-
-.social a {
-
-  position: relative;
-
-  overflow: hidden;
-
-  display: flex;
-
-  align-items: center;
-
-  gap: 14px;
-
-  text-decoration: none;
-
-  color: white;
-
-  padding: 16px;
-
-  border-radius: 18px;
-
-  margin-bottom: 12px;
-
-  font-weight: 600;
-
-  transition: .25s;
-
-}
-
-.social a i {
-
-  font-size: 22px;
-
-}
-
-.instagram-link {
-
-  background:
-    linear-gradient(
-      135deg,
-      #833AB4,
-      #E1306C,
-      #F77737
-    );
-
-}
-
-.whatsapp-link {
-
-  background:
-    linear-gradient(
-      135deg,
-      #25D366,
-      #128C7E
-    );
-
-}
-
-.social a:hover {
-
-  transform:
-    translateY(-4px)
-    scale(1.02);
-
-  box-shadow:
-    0 12px 25px
-    rgba(0,0,0,.25);
-
-}
-
-.social a::after {
-
-  content: "";
-
-  position: absolute;
-
-  top: 0;
-
-  left: -100%;
-
-  width: 100%;
-
-  height: 100%;
-
-  background:
-
-    linear-gradient(
-
-      90deg,
-
-      transparent,
-
-      rgba(255,255,255,.25),
-
-      transparent
-
-    );
-
-  transition: .6s;
-
-}
-
-.social a:hover::after {
-
-  left: 100%;
-
-}
-
-/* ======================================
-   HOVER LINKS
-====================================== */
-
-.instagram-link:hover,
-.whatsapp-link:hover {
-
-  transform: translateY(-3px);
-
-  box-shadow:
-    0 10px 25px rgba(
-      0,
-      0,
-      0,
-      .20
-    );
-
-}
-
-/* ======================================
-   RESPONSIVO
-====================================== */
-
-@media (max-width: 1200px) {
-
-  .cards-dashboard {
-
-    grid-template-columns:
-      repeat(2, 1fr);
-
-  }
-
-  .vendas-mensais-horizontal {
-
-    grid-template-columns:
-      repeat(3, 1fr);
-
-  }
-
-}
-
-@media (max-width: 900px) {
-
-  .dashboard-grid {
-
-    grid-template-columns: 1fr;
-
-  }
-
-  .hero-dashboard {
-
-    flex-direction: column;
-
-    align-items: flex-start;
-
-    gap: 20px;
-
-  }
-
-}
-
-@media (max-width: 700px) {
-
-  .cards-dashboard {
-
-    grid-template-columns: 1fr;
-
-  }
-
-  .vendas-mensais-horizontal {
-
-    grid-template-columns:
-      repeat(2, 1fr);
-
-  }
-
-}
-
-/* ======================================
-   ACERTOS CONSIGNADOS
-====================================== */
-
-.acerto-item {
-
-  display: flex;
-
-  justify-content: space-between;
-
-  align-items: center;
-
-  padding: 16px;
-
-  border-radius: 18px;
-
-  background: #f8fafc;
-
-  margin-bottom: 12px;
-
 }
 
 .acerto-cliente {
-
   display: flex;
-
   align-items: center;
-
   gap: 12px;
-
-}
-
-.acerto-cliente img {
-
-  width: 50px;
-
-  height: 50px;
-
-  border-radius: 50%;
-
-  object-fit: cover;
-
 }
 
 .acerto-info strong {
-
   display: block;
-
   margin-bottom: 4px;
-
+  font-size: 15px;
 }
 
 .acerto-info span {
-
-  color: #64748b;
-
+  color: var(--text-light);
   font-size: 14px;
-
 }
 
 .acerto-data {
-
   font-weight: 600;
+  color: var(--text);
+  font-size: 14px;
+}
 
-  color: #0f172a;
+/* RESPONSIVO DASHBOARD */
+@media (max-width: 1200px) {
+  .cards-dashboard {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
 
+@media (max-width: 900px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+  .hero-dashboard {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 30px;
+  }
+  .hero-dashboard h2 {
+    font-size: 32px;
+  }
+}
+
+@media (max-width: 700px) {
+  .cards-dashboard {
+    grid-template-columns: 1fr;
+  }
 }

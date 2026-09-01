@@ -1,651 +1,209 @@
-// ======================================
-// ASA TEC 3D - ESTOQUE
-// ======================================
-
-// ======================================
-// DATABASE
-// ======================================
-
-let database = getDatabase();
-
-if (!database.estoque) {
-  database.estoque = [];
-}
-
-// ======================================
-// ELEMENTOS
-// ======================================
-
-const estoqueTable =
-  document.getElementById(
-    'estoqueTable'
-  );
-
-const estoqueForm =
-  document.getElementById(
-    'estoqueForm'
-  );
-
-const buscarItem =
-  document.getElementById(
-    'buscarItem'
-  );
-
-const baixoEstoqueList =
-  document.getElementById(
-    'baixoEstoqueList'
-  );
-
-const emFaltaList =
-  document.getElementById(
-    'emFaltaList'
-  );
-
-// ======================================
-// MODAL
-// ======================================
-
-function abrirModalItem() {
-
-  document
-    .getElementById(
-      'modalItem'
-    )
-    .classList.add(
-      'active'
-    );
-
-}
-
-function fecharModalItem() {
-
-  document
-    .getElementById(
-      'modalItem'
-    )
-    .classList.remove(
-      'active'
-    );
-
-}
-
-// ======================================
-// STATUS
-// ======================================
-
-function getStatusClass(
-  status
-) {
-
-  if (
-    status === 'Disponível'
-  ) {
-
-    return 'disponivel';
-
-  }
-
-  if (
-    status === 'Baixo Estoque'
-  ) {
-
-    return 'baixo';
-
-  }
-
-  if (
-    status === 'Em Falta'
-  ) {
-
-    return 'falta';
-
-  }
-
-  return '';
-
-}
-
-// ======================================
-// RESUMO
-// ======================================
-
-function atualizarResumo() {
-
-  database = getDatabase();
-
-  const totalItens =
-    database.estoque.length;
-
-  const disponiveis =
-    database.estoque.filter(
-      item =>
-        item.disponibilidade ===
-        'Disponível'
-    ).length;
-
-  const baixo =
-    database.estoque.filter(
-      item =>
-        item.disponibilidade ===
-        'Baixo Estoque'
-    ).length;
-
-  const falta =
-    database.estoque.filter(
-      item =>
-        item.disponibilidade ===
-        'Em Falta'
-    ).length;
-
-  document.getElementById(
-    'totalItens'
-  ).textContent =
-    totalItens;
-
-  document.getElementById(
-    'totalDisponivel'
-  ).textContent =
-    disponiveis;
-
-  document.getElementById(
-    'totalBaixo'
-  ).textContent =
-    baixo;
-
-  document.getElementById(
-    'totalFalta'
-  ).textContent =
-    falta;
-
-}
-
-// ======================================
-// ALERTAS
-// ======================================
-
-function renderAlertas() {
-
-  baixoEstoqueList.innerHTML =
-    '';
-
-  emFaltaList.innerHTML =
-    '';
-
-  database.estoque.forEach(
-    (item) => {
-
-      if (
-        item.disponibilidade ===
-        'Baixo Estoque'
-      ) {
-
-        baixoEstoqueList.innerHTML += `
-
-          <div class="alert-item">
-
-            <strong>
-
-              ${item.material}
-              -
-              ${item.cor}
-
-            </strong>
-
-            Quantidade:
-            ${item.quantidade}
-
-          </div>
-
-        `;
-
-      }
-
-      if (
-        item.disponibilidade ===
-        'Em Falta'
-      ) {
-
-        emFaltaList.innerHTML += `
-
-          <div class="alert-item">
-
-            <strong>
-
-              ${item.material}
-              -
-              ${item.cor}
-
-            </strong>
-
-            Produto indisponível
-
-          </div>
-
-        `;
-
-      }
-
-    }
-  );
-
-  if (
-    baixoEstoqueList.innerHTML ===
-    ''
-  ) {
-
-    baixoEstoqueList.innerHTML = `
-
-      <div class="alert-item">
-
-        Nenhum item com
-        baixo estoque.
-
-      </div>
-
-    `;
-
-  }
-
-  if (
-    emFaltaList.innerHTML === ''
-  ) {
-
-    emFaltaList.innerHTML = `
-
-      <div class="alert-item">
-
-        Nenhum item
-        em falta.
-
-      </div>
-
-    `;
-
-  }
-
-}
-
-// ======================================
-// RENDER ESTOQUE
-// ======================================
-
+// ============================================================
+// BLOCO ESTOQUE - ASA TEC 3D
+// ============================================================
+let db = getDatabase();
+let estoque = db.estoque || [];
+
+const estoqueTable = document.getElementById('estoqueTable');
+const buscarItem = document.getElementById('buscarItem');
+const modalItem = document.getElementById('modalItem');
+const estoqueForm = document.getElementById('estoqueForm');
+const modalItemTitle = document.getElementById('modalItemTitle');
+const btnSalvarTexto = document.getElementById('btnSalvarTexto');
+
+let editandoId = null;
+
+// BLOCO RENDER ESTOQUE
 function renderEstoque() {
-
-  database = getDatabase();
-
-  if (!database.estoque) {
-
-    database.estoque = [];
-
-  }
-
   estoqueTable.innerHTML = '';
+  const termo = buscarItem.value.toLowerCase().trim();
+  const filtrados = estoque.filter(item =>
+    item.material.toLowerCase().includes(termo) ||
+    item.cor.toLowerCase().includes(termo) ||
+    item.modelo.toLowerCase().includes(termo) ||
+    item.fornecedor.toLowerCase().includes(termo)
+  );
 
-  let itensFiltrados =
-    [...database.estoque];
-
-  // ======================================
-  // BUSCA
-  // ======================================
-
-  const termo =
-    buscarItem.value
-    .toLowerCase()
-    .trim();
-
-  if (termo !== '') {
-
-    itensFiltrados =
-      itensFiltrados.filter(
-        item =>
-
-          item.material
-            .toLowerCase()
-            .includes(termo)
-
-          ||
-
-          item.cor
-            .toLowerCase()
-            .includes(termo)
-
-          ||
-
-          item.modelo
-            .toLowerCase()
-            .includes(termo)
-
-          ||
-
-          item.fornecedor
-            .toLowerCase()
-            .includes(termo)
-
-      );
-
-  }
-
-  // ======================================
-  // SEM ITENS
-  // ======================================
-
-  if (
-    itensFiltrados.length === 0
-  ) {
-
+  if (filtrados.length === 0) {
     estoqueTable.innerHTML = `
-
       <tr>
-
-        <td
-          colspan="7"
-          style="
-            text-align:center;
-            padding:40px;
-          "
-        >
-
-          Nenhum item encontrado
-
+        <td colspan="8" style="text-align:center; padding:40px; color:var(--text-light);">
+          Nenhum item encontrado.
         </td>
-
       </tr>
-
     `;
-
-    return;
-
-  }
-
-  // ======================================
-  // LOOP TABELA
-  // ======================================
-
-  itensFiltrados.forEach(
-    (item) => {
-
-      const indexOriginal =
-        database.estoque.indexOf(
-          item
-        );
-
+  } else {
+    filtrados.forEach((item, idx) => {
+      const indexOriginal = estoque.indexOf(item);
+      const statusClass = item.disponibilidade === 'Disponível' ? 'disponivel' :
+                         item.disponibilidade === 'Baixo Estoque' ? 'baixo' : 'falta';
       estoqueTable.innerHTML += `
-
         <tr>
-
+          <td><strong>${item.material}</strong></td>
+          <td>${item.cor}</td>
+          <td>${item.modelo}</td>
+          <td>${item.fornecedor}</td>
+          <td>${item.quantidade}</td>
+          <td>${item.valorRolo ? 'R$ ' + Number(item.valorRolo).toFixed(2) : '-'}</td>
+          <td><span class="status ${statusClass}">${item.disponibilidade}</span></td>
           <td>
-
-            ${item.material}
-
-          </td>
-
-          <td>
-
-            ${item.cor}
-
-          </td>
-
-          <td>
-
-            ${item.modelo}
-
-          </td>
-
-          <td>
-
-            ${item.fornecedor}
-
-          </td>
-
-          <td>
-
-            ${item.quantidade}
-
-          </td>
-
-          <td>
-
-            <span
-              class="
-                status
-                ${getStatusClass(
-                  item.disponibilidade
-                )}
-              "
-            >
-
-              ${item.disponibilidade}
-
-            </span>
-
-          </td>
-
-          <td>
-
-            <div class="actions">
-
-              <button
-                class="
-                  btn-icon
-                  btn-delete
-                "
-                onclick="
-                  excluirItem(
-                    ${indexOriginal}
-                  )
-                "
-                title="Excluir"
-              >
-
-                <i class="
-                  fa-solid
-                  fa-trash
-                "></i>
-
+            <div class="acoes">
+              <button class="btn-icon btn-edit" onclick="editarItem(${indexOriginal})" title="Editar">
+                <i class="fa-solid fa-pen"></i>
               </button>
-
+              <button class="btn-icon btn-delete" onclick="excluirItem(${indexOriginal})" title="Excluir">
+                <i class="fa-solid fa-trash"></i>
+              </button>
             </div>
-
           </td>
-
         </tr>
-
       `;
+    });
+  }
 
-    }
-  );
+  // Atualizar resumo
+  const totalItens = estoque.length;
+  const disponiveis = estoque.filter(i => i.disponibilidade === 'Disponível').length;
+  const baixo = estoque.filter(i => i.disponibilidade === 'Baixo Estoque').length;
+  const falta = estoque.filter(i => i.disponibilidade === 'Em Falta').length;
 
-  atualizarResumo();
+  document.getElementById('totalItens').textContent = totalItens;
+  document.getElementById('totalDisponivel').textContent = disponiveis;
+  document.getElementById('totalBaixo').textContent = baixo;
+  document.getElementById('totalFalta').textContent = falta;
 
+  // Atualizar alertas
   renderAlertas();
-
 }
 
-// ======================================
-// EXCLUIR ITEM
-// ======================================
+// BLOCO ALERTAS (baixo estoque / em falta)
+function renderAlertas() {
+  const baixoList = document.getElementById('baixoEstoqueList');
+  const faltaList = document.getElementById('emFaltaList');
+  baixoList.innerHTML = '';
+  faltaList.innerHTML = '';
 
+  const baixoItens = estoque.filter(i => i.disponibilidade === 'Baixo Estoque');
+  const faltaItens = estoque.filter(i => i.disponibilidade === 'Em Falta');
+
+  if (baixoItens.length === 0) {
+    baixoList.innerHTML = '<div class="alert-item">Nenhum item com baixo estoque.</div>';
+  } else {
+    baixoItens.forEach(item => {
+      baixoList.innerHTML += `
+        <div class="alert-item" style="border-left-color: #f59e0b;">
+          <strong>${item.material} - ${item.cor}</strong>
+          <span class="alert-qtd">Quantidade: ${item.quantidade}</span>
+        </div>
+      `;
+    });
+  }
+
+  if (faltaItens.length === 0) {
+    faltaList.innerHTML = '<div class="alert-item">Nenhum item em falta.</div>';
+  } else {
+    faltaItens.forEach(item => {
+      faltaList.innerHTML += `
+        <div class="alert-item" style="border-left-color: #ef4444;">
+          <strong>${item.material} - ${item.cor}</strong>
+          <span class="alert-qtd">Indisponível</span>
+        </div>
+      `;
+    });
+  }
+}
+
+// BLOCO ABRIR MODAL (novo)
+function abrirModalItem() {
+  editandoId = null;
+  modalItemTitle.textContent = 'Novo Item';
+  btnSalvarTexto.textContent = 'Salvar Item';
+  estoqueForm.reset();
+  document.getElementById('disponibilidade').value = 'Disponível';
+  modalItem.classList.add('active');
+}
+
+// BLOCO FECHAR MODAL
+function fecharModalItem() {
+  modalItem.classList.remove('active');
+  editandoId = null;
+}
+
+// BLOCO EDITAR ITEM
+function editarItem(index) {
+  const item = estoque[index];
+  editandoId = index;
+  modalItemTitle.textContent = 'Editar Item';
+  btnSalvarTexto.textContent = 'Atualizar Item';
+
+  document.getElementById('material').value = item.material;
+  document.getElementById('cor').value = item.cor;
+  document.getElementById('modelo').value = item.modelo;
+  document.getElementById('fornecedor').value = item.fornecedor;
+  document.getElementById('quantidade').value = item.quantidade;
+  document.getElementById('valorRolo').value = item.valorRolo || '';
+  document.getElementById('disponibilidade').value = item.disponibilidade;
+
+  modalItem.classList.add('active');
+}
+
+// BLOCO EXCLUIR ITEM
 function excluirItem(index) {
-
-  const confirmar =
-    confirm(
-
-      'Deseja realmente excluir este item do estoque?'
-
-    );
-
-  if (!confirmar) {
-
-    return;
-
-  }
-
-  database =
-    getDatabase();
-
-  database.estoque.splice(
-    index,
-    1
-  );
-
-  saveDatabase(
-    database
-  );
-
+  if (!confirm('Deseja realmente excluir este item do estoque?')) return;
+  estoque.splice(index, 1);
+  db.estoque = estoque;
+  saveDatabase(db);
   renderEstoque();
-
 }
 
-// ======================================
-// SALVAR ITEM
-// ======================================
+// BLOCO SALVAR ITEM (submit do form)
+estoqueForm.addEventListener('submit', function(e) {
+  e.preventDefault();
 
-estoqueForm.addEventListener(
-  'submit',
-  (e) => {
+  const novoItem = {
+    material: document.getElementById('material').value.trim(),
+    cor: document.getElementById('cor').value.trim(),
+    modelo: document.getElementById('modelo').value.trim(),
+    fornecedor: document.getElementById('fornecedor').value.trim(),
+    quantidade: Number(document.getElementById('quantidade').value) || 0,
+    valorRolo: Number(document.getElementById('valorRolo').value) || 0,
+    disponibilidade: document.getElementById('disponibilidade').value
+  };
 
-    e.preventDefault();
+  // Validação básica
+  if (!novoItem.material || !novoItem.cor || !novoItem.modelo || !novoItem.fornecedor) {
+    alert('Preencha todos os campos obrigatórios.');
+    return;
+  }
 
-    database =
-      getDatabase();
+  if (editandoId !== null) {
+    // Edição
+    estoque[editandoId] = novoItem;
+  } else {
+    // Novo
+    estoque.push(novoItem);
+  }
 
-    if (!database.estoque) {
+  db.estoque = estoque;
+  saveDatabase(db);
+  fecharModalItem();
+  renderEstoque();
+});
 
-      database.estoque = [];
+// BLOCO BUSCA
+buscarItem.addEventListener('input', renderEstoque);
 
-    }
+// BLOCO FECHAR MODAL CLICANDO FORA
+modalItem.addEventListener('click', function(e) {
+  if (e.target === modalItem) fecharModalItem();
+});
 
-    const novoItem = {
-
-      material:
-        document
-          .getElementById(
-            'material'
-          )
-          .value,
-
-      cor:
-        document
-          .getElementById(
-            'cor'
-          )
-          .value,
-
-      modelo:
-        document
-          .getElementById(
-            'modelo'
-          )
-          .value,
-
-      fornecedor:
-        document
-          .getElementById(
-            'fornecedor'
-          )
-          .value,
-
-      quantidade:
-        Number(
-          document
-            .getElementById(
-              'quantidade'
-            )
-            .value
-        ),
-
-      disponibilidade:
-        document
-          .getElementById(
-            'disponibilidade'
-          )
-          .value
-
-    };
-
-    database.estoque.push(
-      novoItem
-    );
-
-    saveDatabase(
-      database
-    );
-
-    estoqueForm.reset();
-
+// BLOCO TECLA ESC PARA FECHAR
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape' && modalItem.classList.contains('active')) {
     fecharModalItem();
-
-    renderEstoque();
-
   }
-);
+});
 
-// ======================================
-// BUSCA
-// ======================================
-
-if (buscarItem) {
-
-  buscarItem.addEventListener(
-    'input',
-    renderEstoque
-  );
-
-}
-
-// ======================================
-// FECHAR MODAL AO CLICAR FORA
-// ======================================
-
-const modalItem =
-  document.getElementById(
-    'modalItem'
-  );
-
-if (modalItem) {
-
-  modalItem.addEventListener(
-    'click',
-    (e) => {
-
-      if (
-        e.target === modalItem
-      ) {
-
-        fecharModalItem();
-
-      }
-
-    }
-  );
-
-}
-
-// ======================================
-// TECLA ESC
-// ======================================
-
-document.addEventListener(
-  'keydown',
-  (e) => {
-
-    if (
-      e.key === 'Escape'
-    ) {
-
-      fecharModalItem();
-
-    }
-
-  }
-);
-
-// ======================================
-// INIT
-// ======================================
-
+// BLOCO INIT
 renderEstoque();
-
-atualizarResumo();
-
-renderAlertas();

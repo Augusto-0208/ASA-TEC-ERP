@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Documentos | ASA TEC 3D</title>
+
+  <!-- BLOCO FONTS & ICONS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <!-- BLOCO CSS GLOBAL -->
+  <link rel="stylesheet" href="../css/global.css" />
+
+  <!-- BLOCO CSS DOCUMENTOS -->
+  <link rel="stylesheet" href="../css/documentos.css" />
+</head>
+
+<body>
+  <!-- BLOCO LAYOUT PRINCIPAL -->
+  <div class="layout">
+
+    <!-- BLOCO SIDEBAR (idêntica à do dashboard) -->
+    <aside class="sidebar">
+      <div>
+        <div class="logo">
+          <img src="../assets/logo.png" alt="Logo ASA TEC 3D" class="logo-img" />
+          <div>
+            <h1>ASA TEC 3D</h1>
+            <p>ERP Impressão 3D</p>
+          </div>
+        </div>
+
+        <nav class="menu">
+          <a href="../index.html"><i class="fa-solid fa-house"></i><span>Dashboard</span></a>
+          <a href="pedidos.html"><i class="fa-solid fa-box"></i><span>Pedidos</span></a>
+          <a href="clientes.html"><i class="fa-solid fa-users"></i><span>Clientes</span></a>
+          <a href="produtos.html"><i class="fa-solid fa-cube"></i><span>Produtos</span></a>
+          <a href="estoque.html"><i class="fa-solid fa-layer-group"></i><span>Estoque</span></a>
+          <a href="producao.html"><i class="fa-solid fa-print"></i><span>Produção</span></a>
+          <a href="financeiro.html"><i class="fa-solid fa-chart-line"></i><span>Financeiro</span></a>
+          <a href="relatorios.html"><i class="fa-solid fa-chart-pie"></i><span>Relatórios</span></a>
+          <a href="configuracoes.html"><i class="fa-solid fa-gear"></i><span>Configurações</span></a>
+          <a href="documentos.html" class="active"><i class="fa-solid fa-file-contract"></i><span>Documentos</span></a>
+          <a href="login.html"><i class="fa-solid fa-right-to-bracket"></i><span>Login</span></a>
+        </nav>
+      </div>
+
+      <div class="social">
+        <h3>Contatos</h3>
+        <a href="#" class="instagram-link"><i class="fa-brands fa-instagram"></i><span>Instagram</span></a>
+        <a href="#" class="whatsapp-link"><i class="fa-brands fa-whatsapp"></i><span>WhatsApp</span></a>
+      </div>
+    </aside>
+
+    <!-- BLOCO MAIN -->
+    <main class="main">
+
+      <!-- BLOCO HEADER -->
+      <section class="page-header">
+        <div>
+          <h2>Documentos e Contratos</h2>
+          <p>Gerencie documentos, contratos e arquivos por cliente</p>
+        </div>
+        <button class="btn-primary" onclick="abrirModalDocumento()">
+          <i class="fa-solid fa-plus"></i> Novo Documento
+        </button>
+      </section>
+
+      <!-- BLOCO FILTRO POR CLIENTE -->
+      <section style="margin-bottom: 25px;">
+        <div style="display: flex; align-items: center; gap: 15px; flex-wrap: wrap;">
+          <label style="font-weight: 600; font-size: 15px; color: var(--text);">
+            <i class="fa-solid fa-filter"></i> Filtrar por Cliente:
+          </label>
+          <select id="filtroDocCliente" style="padding: 12px 18px; border-radius: 14px; border: 1px solid #cbd5e1; background: white; font-size: 15px; min-width: 220px; outline: none;">
+            <option value="">Todos os clientes</option>
+          </select>
+          <button class="btn-secondary" onclick="document.getElementById('filtroDocCliente').value=''; renderDocumentos();" style="padding: 10px 18px; font-size: 14px;">
+            <i class="fa-solid fa-times"></i> Limpar
+          </button>
+        </div>
+      </section>
+
+      <!-- BLOCO GRID DE DOCUMENTOS -->
+      <section>
+        <div id="listaDocumentos" class="documentos-grid"></div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- ============================================================
+       BLOCO MODAL NOVO DOCUMENTO
+  ============================================================ -->
+  <div id="modalDocumento" class="modal">
+    <div class="modal-content" style="max-width: 600px;">
+      <div class="modal-header">
+        <div>
+          <h2>Novo Documento</h2>
+          <p>Cadastro de contrato ou arquivo</p>
+        </div>
+        <button class="btn-close" onclick="fecharModalDocumento()">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <form id="formDocumento" style="padding: 25px 30px;">
+        <div class="form-group" style="margin-bottom: 18px;">
+          <label>Cliente</label>
+          <input type="text" id="docCliente" list="listaClientesDoc" placeholder="Digite o nome do cliente" required />
+          <datalist id="listaClientesDoc"></datalist>
+        </div>
+        <div class="form-group" style="margin-bottom: 18px;">
+          <label>Título do Documento</label>
+          <input type="text" id="docTitulo" placeholder="Ex: Contrato de Prestação de Serviços" required />
+        </div>
+        <div class="form-group" style="margin-bottom: 18px;">
+          <label>Data do Documento</label>
+          <input type="date" id="docData" required />
+        </div>
+        <div class="form-group" style="margin-bottom: 22px;">
+          <label>Arquivo (PDF, Imagem, etc.)</label>
+          <input type="file" id="docArquivo" accept=".pdf,.doc,.docx,.png,.jpg,.jpeg" required />
+          <small style="color: var(--text-light); font-size: 13px; margin-top: 4px;">
+            Formatos permitidos: PDF, DOC, DOCX, PNG, JPG
+          </small>
+        </div>
+        <button type="submit" class="btn-primary" style="width:100%; justify-content:center; padding: 16px;">
+          <i class="fa-solid fa-floppy-disk"></i> Salvar Documento
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- BLOCO SCRIPTS -->
+  <script src="../js/database.js"></script>
+  <script src="../js/documentos.js"></script>
+</body>
+</html>

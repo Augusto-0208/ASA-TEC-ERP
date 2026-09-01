@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login | ASA TEC 3D</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="../css/global.css">
+  <style>
+    .login-container { max-width:400px; margin:80px auto; background:white; padding:40px; border-radius:30px; box-shadow:0 10px 40px rgba(0,0,0,0.1); }
+    .login-container h2 { text-align:center; margin-bottom:25px; }
+    .login-container .input-group { margin-bottom:20px; }
+    .login-container .input-group label { font-weight:600; display:block; margin-bottom:6px; }
+    .login-container .input-group input { width:100%; padding:14px; border-radius:14px; border:1px solid #dbe2ea; }
+    .login-container .btn-primary { width:100%; padding:15px; }
+    .login-error { color:#ef4444; text-align:center; margin-top:15px; display:none; }
+  </style>
+</head>
+<body>
+<div class="login-container">
+  <img src="../assets/logo.png" alt="Logo" style="width:80px; display:block; margin:0 auto 20px;">
+  <h2>Login ASA TEC 3D</h2>
+  <form id="loginForm">
+    <div class="input-group">
+      <label>Usuário</label>
+      <input type="text" id="loginUser" placeholder="Digite seu usuário" required>
+    </div>
+    <div class="input-group">
+      <label>Senha</label>
+      <input type="password" id="loginPass" placeholder="Digite sua senha" required>
+    </div>
+    <button type="submit" class="btn-primary">Entrar</button>
+    <div id="loginError" class="login-error">Usuário ou senha inválidos.</div>
+  </form>
+</div>
+<script src="../js/login.js"></script>
+</body>
+</html>

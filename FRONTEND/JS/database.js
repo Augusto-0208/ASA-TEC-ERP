@@ -1,52 +1,33 @@
-// =========================
-// DATABASE ASA TEC 3D
-// =========================
-
+// ============================================================
+// BLOCO DATABASE - ASA TEC 3D
+// ============================================================
 function getDatabase() {
-
-  const database =
-    localStorage.getItem('asaTecDatabase');
-
-  if (database) {
-
-    return JSON.parse(database);
-
-  }
-
-  // DATABASE PADRÃO
-
-  const initialDatabase = {
-
+  const db = localStorage.getItem('asaTecDatabase');
+  if (db) return JSON.parse(db);
+  const initial = {
     pedidos: [],
-
     clientes: [],
-
     produtos: [],
-
     estoque: [],
-
-    financeiro: []
-
+    financeiro: [],
+    investimentos: [],
+    contasPagar: [],
+    documentos: [],
+    consignados: []
   };
-
-  localStorage.setItem(
-    'asaTecDatabase',
-    JSON.stringify(initialDatabase)
-  );
-
-  return initialDatabase;
-
+  localStorage.setItem('asaTecDatabase', JSON.stringify(initial));
+  return initial;
 }
 
-// =========================
-// SAVE DATABASE
-// =========================
+function saveDatabase(db) {
+  localStorage.setItem('asaTecDatabase', JSON.stringify(db));
+}
 
-function saveDatabase(database) {
+// BLOCO FUNÇÕES AUXILIARES
+function formatarMoeda(valor) {
+  return Number(valor || 0).toLocaleString('pt-BR', { style:'currency', currency:'BRL' });
+}
 
-  localStorage.setItem(
-    'asaTecDatabase',
-    JSON.stringify(database)
-  );
-
+function gerarId() {
+  return Date.now();
 }

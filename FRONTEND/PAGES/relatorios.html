@@ -1,764 +1,177 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Relatórios | ASA TEC 3D</title>
 
-<meta charset="UTF-8">
+  <!-- BLOCO FONTS & ICONS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- BLOCO CSS GLOBAL -->
+  <link rel="stylesheet" href="../css/global.css" />
 
-<title>
-Relatórios | ASA TEC 3D
-</title>
-
-
-<link
-rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-/>
-
-
-<link
-rel="stylesheet"
-href="../css/relatorios.css"
-/>
-
-
+  <!-- BLOCO CSS RELATÓRIOS -->
+  <link rel="stylesheet" href="../css/relatorios.css" />
 </head>
 
-
 <body>
-
-
-<div class="layout">
-
-
-
-<!-- =========================
-SIDEBAR
-========================= -->
-
-
-<aside class="sidebar">
-
-
-<div class="sidebar-top">
-
-
-
-<div class="logo">
-
-
-<img
-src="../img/logo.png"
-class="logo-img"
-alt="Logo ASA TEC 3D"
->
-
-
-
-<div class="logo-text">
-
-
-<h1>
-ASA TEC 3D
-</h1>
-
-
-<p>
-ERP Impressão 3D
-</p>
-
-
-</div>
-
-
-</div>
-
-
-
-
-<nav class="menu">
-
-
-
-<a href="../index.html">
-
-<i class="fa-solid fa-house"></i>
-
-<span>
-Dashboard
-</span>
-
-</a>
-
-
-
-
-<a href="pedidos.html">
-
-<i class="fa-solid fa-box"></i>
-
-<span>
-Pedidos
-</span>
-
-</a>
-
-
-
-
-<a href="clientes.html">
-
-<i class="fa-solid fa-users"></i>
-
-<span>
-Clientes
-</span>
-
-</a>
-
-
-
-
-<a href="produtos.html">
-
-<i class="fa-solid fa-cube"></i>
-
-<span>
-Produtos
-</span>
-
-</a>
-
-
-
-
-<a href="estoque.html">
-
-<i class="fa-solid fa-layer-group"></i>
-
-<span>
-Estoque
-</span>
-
-</a>
-
-
-
-
-<a href="producao.html">
-
-<i class="fa-solid fa-print"></i>
-
-<span>
-Produção
-</span>
-
-</a>
-
-
-
-
-<a href="financeiro.html">
-
-<i class="fa-solid fa-chart-line"></i>
-
-<span>
-Financeiro
-</span>
-
-</a>
-
-
-
-
-<a 
-href="relatorios.html"
-class="active"
->
-
-<i class="fa-solid fa-chart-pie"></i>
-
-<span>
-Relatórios
-</span>
-
-</a>
-
-
-
-
-<a href="configuracoes.html">
-
-<i class="fa-solid fa-gear"></i>
-
-<span>
-Configurações
-</span>
-
-</a>
-
-
-
-
-<a href="#">
-
-<i class="fa-solid fa-right-to-bracket"></i>
-
-<span>
-Login
-</span>
-
-</a>
-
-
-
-</nav>
-
-
-</div>
-
-
-
-
-
-<!-- =========================
-SOCIAL
-========================= -->
-
-
-<div class="social">
-
-
-<h3>
-Contatos
-</h3>
-
-
-
-<a
-href="#"
-class="instagram-link"
->
-
-<i class="fa-brands fa-instagram"></i>
-
-<span>
-Instagram
-</span>
-
-</a>
-
-
-
-<a
-href="#"
-class="whatsapp-link"
->
-
-<i class="fa-brands fa-whatsapp"></i>
-
-<span>
-WhatsApp
-</span>
-
-</a>
-
-
-
-</div>
-
-
-
-</aside>
-
-
-
-
-
-<!-- =========================
-MAIN
-========================= -->
-
-
-<main class="main">
-
-
-
-<section class="page-header">
-
-
-<div>
-
-
-<h2>
-Relatórios
-</h2>
-
-
-<p>
-Análise completa dos dados da ASA TEC 3D
-</p>
-
-
-</div>
-
-
-</section>
-
-
-
-
-
-<!-- =========================
-ABAS
-========================= -->
-
-
-<section class="tabs-container">
-
-
-<button
-class="tab active"
-data-relatorio="vendas"
->
-
-<i class="fa-solid fa-cart-shopping"></i>
-
-Vendas
-
-</button>
-
-
-
-<button
-class="tab"
-data-relatorio="financeiro"
->
-
-<i class="fa-solid fa-money-bill"></i>
-
-Financeiro
-
-</button>
-
-
-
-<button
-class="tab"
-data-relatorio="clientes"
->
-
-<i class="fa-solid fa-users"></i>
-
-Clientes
-
-</button>
-
-
-
-<button
-class="tab"
-data-relatorio="producao"
->
-
-<i class="fa-solid fa-print"></i>
-
-Produção
-
-</button>
-
-
-
-<button
-class="tab"
-data-relatorio="consignados"
->
-
-<i class="fa-solid fa-box-open"></i>
-
-Consignados
-
-</button>
-
-
-
-</section>
-
-
-
-
-
-
-<!-- =========================
-FILTROS
-========================= -->
-
-
-<section class="panel">
-
-
-<div class="panel-header">
-
-
-<h3>
-Filtros
-</h3>
-
-
-</div>
-
-
-
-<div class="filtros-grid">
-
-
-<div>
-
-<label>
-Data Inicial
-</label>
-
-
-<input
-type="date"
-id="dataInicial"
->
-
-
-</div>
-
-
-
-
-<div>
-
-<label>
-Data Final
-</label>
-
-
-<input
-type="date"
-id="dataFinal"
->
-
-
-</div>
-
-
-
-
-<div>
-
-<label>
-Status
-</label>
-
-
-<select id="filtroStatus">
-
-<option value="">
-Todos
-</option>
-
-<option>
-Pendente
-</option>
-
-<option>
-Modelagem
-</option>
-
-<option>
-Imprimindo
-</option>
-
-<option>
-Pronto
-</option>
-
-<option>
-Entregue
-</option>
-
-<option>
-Cancelado
-</option>
-
-
-</select>
-
-
-</div>
-
-
-
-
-<div>
-
-<label>
-Cliente
-</label>
-
-
-<input
-type="text"
-id="filtroCliente"
-placeholder="Pesquisar cliente"
->
-
-
-</div>
-
-
-
-</div>
-
-
-
-
-<div class="acoes">
-
-
-<button
-class="btn-primary"
-id="btnFiltrar"
->
-
-<i class="fa-solid fa-filter"></i>
-
-Filtrar
-
-</button>
-
-
-
-<button
-class="btn-excel"
-id="exportarExcel"
->
-
-<i class="fa-solid fa-file-excel"></i>
-
-Excel
-
-</button>
-
-
-
-
-<button
-class="btn-pdf"
-id="exportarPDF"
->
-
-<i class="fa-solid fa-file-pdf"></i>
-
-PDF
-
-</button>
-
-
-
-</div>
-
-
-
-</section>
-
-
-
-
-
-
-
-<!-- =========================
-RESUMO
-========================= -->
-
-
-<section class="cards-resumo">
-
-
-
-<div class="resumo-card">
-
-
-<span>
-Total Registros
-</span>
-
-
-<h3 id="totalRegistros">
-0
-</h3>
-
-
-</div>
-
-
-
-
-<div class="resumo-card">
-
-
-<span>
-Valor Total
-</span>
-
-
-<h3 id="valorTotal">
-R$ 0,00
-</h3>
-
-
-</div>
-
-
-
-
-
-<div class="resumo-card">
-
-
-<span>
-Clientes
-</span>
-
-
-<h3 id="totalClientes">
-0
-</h3>
-
-
-</div>
-
-
-
-
-</section>
-
-
-
-
-
-
-
-<!-- =========================
-TABELA
-========================= -->
-
-
-<section class="panel">
-
-
-<div class="panel-header">
-
-
-<h3 id="tituloTabela">
-
-Relatório de Vendas
-
-</h3>
-
-
-</div>
-
-
-
-<div class="table-container">
-
-
-<table>
-
-
-<thead id="cabecalhoTabela">
-
-
-<tr>
-
-<th>
-Data
-</th>
-
-
-<th>
-Cliente
-</th>
-
-
-<th>
-Produto
-</th>
-
-
-<th>
-Valor
-</th>
-
-
-<th>
-Status
-</th>
-
-
-</tr>
-
-
-</thead>
-
-
-
-<tbody id="tabelaRelatorio">
-
-
-</tbody>
-
-
-
-</table>
-
-
-
-</div>
-
-
-
-</section>
-
-
-
-
-
-</main>
-
-
-</div>
-
-
-
-
-<!-- EXPORTAÇÃO -->
-
-<script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
-
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/3.0.1/jspdf.umd.min.js"></script>
-
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/5.0.2/jspdf.plugin.autotable.min.js"></script>
-
-
-
-
-<script src="../js/database.js"></script>
-
-<script src="../js/relatorios.js"></script>
-
-
-
+  <!-- BLOCO LAYOUT PRINCIPAL -->
+  <div class="layout">
+
+    <!-- BLOCO SIDEBAR (idêntica à do dashboard) -->
+    <aside class="sidebar">
+      <div>
+        <div class="logo">
+          <img src="../assets/logo.png" alt="Logo ASA TEC 3D" class="logo-img" />
+          <div>
+            <h1>ASA TEC 3D</h1>
+            <p>ERP Impressão 3D</p>
+          </div>
+        </div>
+
+        <nav class="menu">
+          <a href="../index.html"><i class="fa-solid fa-house"></i><span>Dashboard</span></a>
+          <a href="pedidos.html"><i class="fa-solid fa-box"></i><span>Pedidos</span></a>
+          <a href="clientes.html"><i class="fa-solid fa-users"></i><span>Clientes</span></a>
+          <a href="produtos.html"><i class="fa-solid fa-cube"></i><span>Produtos</span></a>
+          <a href="estoque.html"><i class="fa-solid fa-layer-group"></i><span>Estoque</span></a>
+          <a href="producao.html"><i class="fa-solid fa-print"></i><span>Produção</span></a>
+          <a href="financeiro.html"><i class="fa-solid fa-chart-line"></i><span>Financeiro</span></a>
+          <a href="relatorios.html" class="active"><i class="fa-solid fa-chart-pie"></i><span>Relatórios</span></a>
+          <a href="configuracoes.html"><i class="fa-solid fa-gear"></i><span>Configurações</span></a>
+          <a href="documentos.html"><i class="fa-solid fa-file-contract"></i><span>Documentos</span></a>
+          <a href="login.html"><i class="fa-solid fa-right-to-bracket"></i><span>Login</span></a>
+        </nav>
+      </div>
+
+      <div class="social">
+        <h3>Contatos</h3>
+        <a href="#" class="instagram-link"><i class="fa-brands fa-instagram"></i><span>Instagram</span></a>
+        <a href="#" class="whatsapp-link"><i class="fa-brands fa-whatsapp"></i><span>WhatsApp</span></a>
+      </div>
+    </aside>
+
+    <!-- BLOCO MAIN -->
+    <main class="main">
+
+      <!-- BLOCO HEADER -->
+      <section class="page-header">
+        <div>
+          <h2>Relatórios</h2>
+          <p>Análise completa dos dados da ASA TEC 3D</p>
+        </div>
+      </section>
+
+      <!-- BLOCO ABAS DE RELATÓRIO -->
+      <section class="tabs-container">
+        <button class="tab active" data-relatorio="vendas">
+          <i class="fa-solid fa-cart-shopping"></i> Vendas
+        </button>
+        <button class="tab" data-relatorio="financeiro">
+          <i class="fa-solid fa-money-bill"></i> Financeiro
+        </button>
+        <button class="tab" data-relatorio="clientes">
+          <i class="fa-solid fa-users"></i> Clientes
+        </button>
+        <button class="tab" data-relatorio="producao">
+          <i class="fa-solid fa-print"></i> Produção
+        </button>
+        <button class="tab" data-relatorio="consignados">
+          <i class="fa-solid fa-box-open"></i> Consignados
+        </button>
+      </section>
+
+      <!-- BLOCO FILTROS -->
+      <section class="panel">
+        <div class="panel-header">
+          <h3>Filtros</h3>
+        </div>
+        <div class="filtros-grid">
+          <div>
+            <label>Data Inicial</label>
+            <input type="date" id="dataInicial" />
+          </div>
+          <div>
+            <label>Data Final</label>
+            <input type="date" id="dataFinal" />
+          </div>
+          <div>
+            <label>Status</label>
+            <select id="filtroStatus">
+              <option value="">Todos</option>
+              <option>Pendente</option>
+              <option>Modelagem</option>
+              <option>Imprimindo</option>
+              <option>Pós-processo</option>
+              <option>Pronto</option>
+              <option>Entregue</option>
+              <option>Cancelado</option>
+            </select>
+          </div>
+          <div>
+            <label>Cliente</label>
+            <input type="text" id="filtroCliente" placeholder="Pesquisar cliente" />
+          </div>
+        </div>
+        <div class="acoes">
+          <button class="btn-primary" id="btnFiltrar">
+            <i class="fa-solid fa-filter"></i> Filtrar
+          </button>
+          <button class="btn-excel" id="exportarExcel">
+            <i class="fa-solid fa-file-excel"></i> Excel
+          </button>
+          <button class="btn-pdf" id="exportarPDF">
+            <i class="fa-solid fa-file-pdf"></i> PDF
+          </button>
+        </div>
+      </section>
+
+      <!-- BLOCO CARDS RESUMO -->
+      <section class="cards-resumo">
+        <div class="resumo-card">
+          <span>Total Registros</span>
+          <h3 id="totalRegistros">0</h3>
+        </div>
+        <div class="resumo-card">
+          <span>Valor Total</span>
+          <h3 id="valorTotal">R$ 0,00</h3>
+        </div>
+        <div class="resumo-card">
+          <span>Clientes</span>
+          <h3 id="totalClientes">0</h3>
+        </div>
+      </section>
+
+      <!-- BLOCO TABELA DE RELATÓRIO -->
+      <section class="panel">
+        <div class="panel-header">
+          <h3 id="tituloTabela">Relatório de Vendas</h3>
+        </div>
+        <div class="table-container">
+          <table>
+            <thead id="cabecalhoTabela">
+              <tr>
+                <th>Data</th>
+                <th>Cliente</th>
+                <th>Produto</th>
+                <th>Valor</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="tabelaRelatorio"></tbody>
+          </table>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- BLOCO SCRIPTS -->
+  <script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/3.0.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/5.0.2/jspdf.plugin.autotable.min.js"></script>
+  <script src="../js/database.js"></script>
+  <script src="../js/relatorios.js"></script>
 </body>
-
 </html>

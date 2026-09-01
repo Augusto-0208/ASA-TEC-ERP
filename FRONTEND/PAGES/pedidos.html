@@ -1,815 +1,219 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
-
-<meta charset="UTF-8">
-
-<meta
-name="viewport"
-content="width=device-width, initial-scale=1.0"
->
-
-<title>
-Pedidos | ASA TEC 3D ERP
-</title>
-
-<link
-rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
->
-
-<link
-rel="stylesheet"
-href="../css/global.css"
->
-
-<link
-rel="stylesheet"
-href="../css/pedidos.css"
->
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pedidos | ASA TEC 3D ERP</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="../css/global.css">
+  <link rel="stylesheet" href="../css/pedidos.css">
 </head>
-
 <body>
-
 <div class="layout">
+  <!-- BLOCO SIDEBAR -->
+  <aside class="sidebar">
+    <div>
+      <div class="logo">
+        <img src="../assets/logo.png" alt="Logo" class="logo-img">
+        <div>
+          <h1>ASA TEC 3D</h1>
+          <p>ERP Impressão 3D</p>
+        </div>
+      </div>
+      <nav class="menu">
+        <a href="../index.html"><i class="fa-solid fa-house"></i><span>Dashboard</span></a>
+        <a href="pedidos.html" class="active"><i class="fa-solid fa-box"></i><span>Pedidos</span></a>
+        <a href="clientes.html"><i class="fa-solid fa-users"></i><span>Clientes</span></a>
+        <a href="produtos.html"><i class="fa-solid fa-cube"></i><span>Produtos</span></a>
+        <a href="estoque.html"><i class="fa-solid fa-layer-group"></i><span>Estoque</span></a>
+        <a href="producao.html"><i class="fa-solid fa-print"></i><span>Produção</span></a>
+        <a href="financeiro.html"><i class="fa-solid fa-chart-line"></i><span>Financeiro</span></a>
+        <a href="relatorios.html"><i class="fa-solid fa-chart-pie"></i><span>Relatórios</span></a>
+        <a href="configuracoes.html"><i class="fa-solid fa-gear"></i><span>Configurações</span></a>
+        <a href="documentos.html"><i class="fa-solid fa-file-contract"></i><span>Documentos</span></a>
+        <a href="login.html"><i class="fa-solid fa-right-to-bracket"></i><span>Login</span></a>
+      </nav>
+    </div>
+    <div class="social">
+      <h3>Contatos</h3>
+      <a href="#" class="instagram-link"><i class="fa-brands fa-instagram"></i><span>Instagram</span></a>
+      <a href="#" class="whatsapp-link"><i class="fa-brands fa-whatsapp"></i><span>WhatsApp</span></a>
+    </div>
+  </aside>
 
-<!-- ======================================
-SIDEBAR
-====================================== -->
+  <!-- BLOCO MAIN -->
+  <main class="main">
+    <!-- BLOCO HEADER -->
+    <section class="page-header">
+      <div><h2>Pedidos</h2><p>Controle completo dos pedidos e consignados</p></div>
+      <div class="header-actions">
+        <button class="btn-primary" id="btnNovoPedido"><i class="fa-solid fa-plus"></i> Novo Pedido</button>
+        <button class="btn-secondary" id="btnNovoConsignado"><i class="fa-solid fa-store"></i> Novo Consignado</button>
+      </div>
+    </section>
 
-<aside class="sidebar">
+    <!-- BLOCO PESQUISA -->
+    <section class="search-area">
+      <div class="search-box">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" id="pesquisaPedido" placeholder="Pesquisar cliente, produto, número do pedido ou status...">
+      </div>
+    </section>
 
-<div>
+    <!-- BLOCO CARDS RESUMO (sem Valor Produção) -->
+    <section class="cards-resumo">
+      <div class="resumo-card"><span>Pedidos Ativos</span><h3 id="cardPedidosAtivos">0</h3></div>
+      <div class="resumo-card"><span>Entregues</span><h3 id="cardPedidosEntregues">0</h3></div>
+      <div class="resumo-card"><span>Consignados</span><h3 id="cardConsignados">0</h3></div>
+    </section>
 
-<div class="logo">
+    <!-- BLOCO PEDIDOS -->
+    <section class="pedidos-section">
+      <div class="section-title"><h3>Pedidos de Venda</h3></div>
+      <div id="listaPedidos" class="cards-grid"></div>
+    </section>
 
-<img
-src="../img/logo.png"
-alt="Logo"
-class="logo-img"
->
-
-<div>
-
-<h1>
-ASA TEC 3D
-</h1>
-
-<p>
-ERP Impressão 3D
-</p>
-
+    <!-- BLOCO CONSIGNADOS -->
+    <section class="pedidos-section">
+      <div class="section-title"><h3>Pedidos Consignados</h3></div>
+      <div id="listaConsignados" class="cards-grid"></div>
+    </section>
+  </main>
 </div>
 
+<!-- ============================================================
+     BLOCO MODAL NOVO PEDIDO
+============================================================ -->
+<div id="modalPedido" class="modal">
+  <div class="modal-content modal-lg">
+    <div class="modal-header">
+      <h3>Novo Pedido</h3>
+      <button class="btn-close" onclick="fecharModalPedido()"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="form-grid">
+      <!-- BLOCO CLIENTE com datalist -->
+      <div class="form-group">
+        <label>Cliente</label>
+        <input type="text" id="pedidoCliente" list="listaClientes" placeholder="Digite ou selecione">
+        <datalist id="listaClientes"></datalist>
+      </div>
+      <!-- BLOCO PRODUTO com datalist -->
+      <div class="form-group">
+        <label>Produto</label>
+        <input type="text" id="pedidoProduto" list="listaProdutos" placeholder="Digite ou selecione">
+        <datalist id="listaProdutos"></datalist>
+      </div>
+      <div class="form-group">
+        <label>Valor (preenchido automaticamente)</label>
+        <input type="number" step="0.01" id="pedidoValor" readonly>
+      </div>
+      <div class="form-group">
+        <label>Foto Produto</label>
+        <input type="file" id="pedidoFotoProduto" accept="image/*">
+      </div>
+      <div class="form-group">
+        <label>Data Pedido</label>
+        <input type="date" id="pedidoData">
+      </div>
+      <div class="form-group">
+        <label>Previsão Entrega</label>
+        <input type="date" id="pedidoEntrega">
+      </div>
+      <div class="form-group">
+        <label>Status</label>
+        <select id="pedidoStatus">
+          <option>Pendente</option><option>Modelagem</option><option>Imprimindo</option>
+          <option>Pós-processo</option><option>Pronto</option><option>Entregue</option><option>Cancelado</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group" style="padding:0 25px;">
+      <label>Observações</label>
+      <textarea id="pedidoObs" rows="4"></textarea>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-primary" id="salvarPedido">Salvar Pedido</button>
+    </div>
+  </div>
 </div>
 
-<nav class="menu">
-
-<a href="../index.html">
-
-<i class="fa-solid fa-house"></i>
-
-<span>
-Dashboard
-</span>
-
-</a>
-
-<a
-href="pedidos.html"
-class="active"
->
-
-<i class="fa-solid fa-box"></i>
-
-<span>
-Pedidos
-</span>
-
-</a>
-
-<a href="clientes.html">
-
-<i class="fa-solid fa-users"></i>
-
-<span>
-Clientes
-</span>
-
-</a>
-
-<a href="produtos.html">
-
-<i class="fa-solid fa-cube"></i>
-
-<span>
-Produtos
-</span>
-
-</a>
-
-<a href="estoque.html">
-
-<i class="fa-solid fa-layer-group"></i>
-
-<span>
-Estoque
-</span>
-
-</a>
-
-<a href="producao.html">
-
-<i class="fa-solid fa-print"></i>
-
-<span>
-Produção
-</span>
-
-</a>
-
-<a href="financeiro.html">
-
-<i class="fa-solid fa-chart-line"></i>
-
-<span>
-Financeiro
-</span>
-
-</a>
-
-<a href="relatorios.html">
-
-<i class="fa-solid fa-chart-pie"></i>
-
-<span>
-Relatórios
-</span>
-
-</a>
-
-<a href="configuracoes.html">
-
-<i class="fa-solid fa-gear"></i>
-
-<span>
-Configurações
-</span>
-
-</a>
-
-<a href="#">
-
-<i class="fa-solid fa-right-to-bracket"></i>
-
-<span>
-Login
-</span>
-
-</a>
-
-</nav>
-
+<!-- ============================================================
+     BLOCO MODAL NOVO CONSIGNADO (campos maiores)
+============================================================ -->
+<div id="modalConsignado" class="modal">
+  <div class="modal-content modal-xl">
+    <div class="modal-header">
+      <h3>Novo Consignado</h3>
+      <button class="btn-close" onclick="fecharModalConsignado()"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="form-grid">
+      <div class="form-group">
+        <label>Cliente</label>
+        <input type="text" id="consCliente" list="listaClientesCons">
+        <datalist id="listaClientesCons"></datalist>
+      </div>
+      <div class="form-group">
+        <label>Data Entrega</label>
+        <input type="date" id="consEntrega">
+      </div>
+      <div class="form-group">
+        <label>Data Acerto</label>
+        <input type="date" id="consAcerto">
+      </div>
+      <div class="form-group">
+        <label>Status</label>
+        <select id="consStatus">
+          <option>Aberto</option><option>Em Produção</option><option>Aguardando Acerto</option><option>Finalizado</option>
+        </select>
+      </div>
+    </div>
+    <!-- BLOCO ITENS CONSIGNADO com campos ampliados -->
+    <div class="items-header">
+      <h4>Itens Consignados</h4>
+      <button class="btn-primary" id="btnAdicionarItem">+ Adicionar Item</button>
+    </div>
+    <div id="listaItensConsignado" style="padding:0 25px 25px; display:flex; flex-direction:column; gap:15px;"></div>
+    <div class="modal-footer">
+      <button class="btn-primary" id="salvarConsignado">Salvar Consignado</button>
+    </div>
+  </div>
 </div>
 
-<div class="social">
-
-<h3>
-Contatos
-</h3>
-
-<a
-href="#"
-class="instagram-link"
->
-
-<i class="fa-brands fa-instagram"></i>
-
-<span>
-Instagram
-</span>
-
-</a>
-
-<a
-href="#"
-class="whatsapp-link"
->
-
-<i class="fa-brands fa-whatsapp"></i>
-
-<span>
-WhatsApp
-</span>
-
-</a>
-
+<!-- ============================================================
+     BLOCO MODAL DETALHES PEDIDO
+============================================================ -->
+<div id="modalDetalhesPedido" class="modal">
+  <div class="modal-content modal-xl">
+    <div class="modal-header">
+      <h3>Detalhes do Pedido</h3>
+      <button class="btn-close" onclick="fecharDetalhesPedido()"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div id="conteudoDetalhesPedido"></div>
+    <div class="modal-footer">
+      <button class="btn-primary" id="btnSalvarEdicaoPedido">Salvar</button>
+      <button class="btn-danger" id="btnExcluirPedido">Excluir</button>
+    </div>
+  </div>
 </div>
 
-</aside>
-
-<!-- ======================================
-MAIN
-====================================== -->
-
-<main class="main">
-
-<!-- ======================================
-HEADER
-====================================== -->
-
-<section class="page-header">
-
-<div>
-
-<h2>
-Pedidos
-</h2>
-
-<p>
-Controle completo dos pedidos e consignados
-</p>
-
+<!-- ============================================================
+     BLOCO MODAL DETALHES CONSIGNADO
+============================================================ -->
+<div id="modalDetalhesConsignado" class="modal">
+  <div class="modal-content modal-xl">
+    <div class="modal-header">
+      <h3>Detalhes Consignado</h3>
+      <button class="btn-close" onclick="fecharDetalhesConsignado()"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div id="conteudoDetalhesConsignado"></div>
+    <div class="modal-footer">
+      <button class="btn-primary" id="btnSalvarEdicaoConsignado">Salvar</button>
+      <button class="btn-danger" id="btnExcluirConsignado">Excluir</button>
+    </div>
+  </div>
 </div>
 
-<div class="header-actions">
-
-<button
-class="btn-primary"
-id="btnNovoPedido"
->
-
-<i class="fa-solid fa-plus"></i>
-
-Novo Pedido
-
-</button>
-
-<button
-class="btn-secondary"
-id="btnNovoConsignado"
->
-
-<i class="fa-solid fa-store"></i>
-
-Novo Consignado
-
-</button>
-
-</div>
-
-</section>
-
-<!-- ======================================
-PESQUISA
-====================================== -->
-
-<section class="search-area">
-
-<div class="search-box">
-
-<i class="fa-solid fa-magnifying-glass"></i>
-
-<input
-type="text"
-id="pesquisaPedido"
-placeholder="Pesquisar cliente, produto, número do pedido ou status..."
->
-
-</div>
-
-</section>
-
-<!-- ======================================
-CARDS RESUMO
-====================================== -->
-
-<section class="cards-resumo">
-
-<div class="resumo-card">
-
-<span>
-Pedidos Ativos
-</span>
-
-<h3 id="cardPedidosAtivos">
-0
-</h3>
-
-</div>
-
-<div class="resumo-card">
-
-<span>
-Entregues
-</span>
-
-<h3 id="cardPedidosEntregues">
-0
-</h3>
-
-</div>
-
-<div class="resumo-card">
-
-<span>
-Consignados
-</span>
-
-<h3 id="cardConsignados">
-0
-</h3>
-
-</div>
-
-<div class="resumo-card">
-
-<span>
-Valor Produção
-</span>
-
-<h3 id="cardValorProducao">
-R$ 0,00
-</h3>
-
-</div>
-
-</section>
-
-<!-- ======================================
-PEDIDOS
-====================================== -->
-
-<section class="pedidos-section">
-
-<div class="section-title">
-
-<h3>
-Pedidos de Venda
-</h3>
-
-</div>
-
-<div
-id="listaPedidos"
-class="cards-grid"
->
-
-</div>
-
-</section>
-
-<!-- ======================================
-CONSIGNADOS
-====================================== -->
-
-<section class="pedidos-section">
-
-<div class="section-title">
-
-<h3>
-Pedidos Consignados
-</h3>
-
-</div>
-
-<div
-id="listaConsignados"
-class="cards-grid"
->
-
-</div>
-
-</section>
-
-<!-- ======================================
-MODAL NOVO PEDIDO
-====================================== -->
-
-<div
-id="modalPedido"
-class="modal"
->
-
-<div class="modal-content modal-lg">
-
-<div class="modal-header">
-
-<h3>
-Novo Pedido
-</h3>
-
-<button
-class="btn-close"
-onclick="fecharModalPedido()"
->
-
-<i class="fa-solid fa-xmark"></i>
-
-</button>
-
-</div>
-
-<div class="form-grid">
-
-<div class="form-group">
-
-<label>
-Cliente
-</label>
-
-<input
-type="text"
-id="pedidoCliente"
->
-
-</div>
-
-<div class="form-group">
-
-<label>
-Produto
-</label>
-
-<input
-type="text"
-id="pedidoProduto"
->
-
-</div>
-
-<div class="form-group">
-
-<label>
-Foto Produto
-</label>
-
-<input
-type="file"
-id="pedidoFotoProduto"
-accept="image/*"
->
-
-</div>
-
-<div class="form-group">
-
-<label>
-Valor
-</label>
-
-<input
-type="number"
-step="0.01"
-id="pedidoValor"
->
-
-</div>
-
-<div class="form-group">
-
-<label>
-Data Pedido
-</label>
-
-<input
-type="date"
-id="pedidoData"
->
-
-</div>
-
-<div class="form-group">
-
-<label>
-Previsão Entrega
-</label>
-
-<input
-type="date"
-id="pedidoEntrega"
->
-
-</div>
-
-<div class="form-group">
-
-<label>
-Status
-</label>
-
-<select id="pedidoStatus">
-
-<option>Pendente</option>
-
-<option>Modelagem</option>
-
-<option>Imprimindo</option>
-
-<option>Pós-processo</option>
-
-<option>Pronto</option>
-
-<option>Entregue</option>
-
-<option>Cancelado</option>
-
-</select>
-
-</div>
-
-</div>
-
-<div class="form-group">
-
-<label>
-Observações
-</label>
-
-<textarea
-id="pedidoObs"
-rows="4"
-></textarea>
-
-</div>
-
-<div class="modal-footer">
-
-<button
-class="btn-primary"
-id="salvarPedido"
->
-
-Salvar Pedido
-
-</button>
-
-</div>
-
-</div>
-
-</div>
-
-<!-- ======================================
-MODAL CONSIGNADO
-====================================== -->
-
-<div
-id="modalConsignado"
-class="modal"
->
-
-<div class="modal-content modal-xl">
-
-<div class="modal-header">
-
-<h3>
-Novo Consignado
-</h3>
-
-<button
-class="btn-close"
-onclick="fecharModalConsignado()"
->
-
-<i class="fa-solid fa-xmark"></i>
-
-</button>
-
-</div>
-
-<div class="form-grid">
-
-<div class="form-group">
-
-<label>
-Cliente
-</label>
-
-<input
-type="text"
-id="consCliente"
->
-
-</div>
-
-<div class="form-group">
-
-<label>
-Data Entrega
-</label>
-
-<input
-type="date"
-id="consEntrega"
->
-
-</div>
-
-<div class="form-group">
-
-<label>
-Data Acerto
-</label>
-
-<input
-type="date"
-id="consAcerto"
->
-
-</div>
-
-<div class="form-group">
-
-<label>
-Status
-</label>
-
-<select id="consStatus">
-
-<option>Aberto</option>
-
-<option>Em Produção</option>
-
-<option>Aguardando Acerto</option>
-
-<option>Finalizado</option>
-
-</select>
-
-</div>
-
-</div>
-
-<div class="items-header">
-
-<h4>
-Itens Consignados
-</h4>
-
-<button
-class="btn-primary"
-id="btnAdicionarItem"
->
-
-+ Adicionar Item
-
-</button>
-
-</div>
-
-<div id="listaItensConsignado">
-
-</div>
-
-<div class="modal-footer">
-
-<button
-class="btn-primary"
-id="salvarConsignado"
->
-
-Salvar Consignado
-
-</button>
-
-</div>
-
-</div>
-
-</div>
-
-<!-- ======================================
-DETALHES PEDIDO
-====================================== -->
-
-<div
-id="modalDetalhesPedido"
-class="modal"
->
-
-<div class="modal-content modal-xl">
-
-<div class="modal-header">
-
-<h3>
-Detalhes do Pedido
-</h3>
-
-<button
-class="btn-close"
-onclick="fecharDetalhesPedido()"
->
-
-<i class="fa-solid fa-xmark"></i>
-
-</button>
-
-</div>
-
-<div
-id="conteudoDetalhesPedido"
->
-
-</div>
-
-<div class="modal-footer">
-
-<button
-class="btn-primary"
-id="btnSalvarEdicaoPedido"
->
-
-Salvar
-
-</button>
-
-<button
-class="btn-danger"
-id="btnExcluirPedido"
->
-
-Excluir
-
-</button>
-
-</div>
-
-</div>
-
-</div>
-
-<!-- ======================================
-DETALHES CONSIGNADO
-====================================== -->
-
-<div
-id="modalDetalhesConsignado"
-class="modal"
->
-
-<div class="modal-content modal-xl">
-
-<div class="modal-header">
-
-<h3>
-Detalhes Consignado
-</h3>
-
-<button
-class="btn-close"
-onclick="fecharDetalhesConsignado()"
->
-
-<i class="fa-solid fa-xmark"></i>
-
-</button>
-
-</div>
-
-<div
-id="conteudoDetalhesConsignado"
->
-
-</div>
-
-<div class="modal-footer">
-
-<button
-class="btn-primary"
-id="btnSalvarEdicaoConsignado"
->
-
-Salvar
-
-</button>
-
-<button
-class="btn-danger"
-id="btnExcluirConsignado"
->
-
-Excluir
-
-</button>
-
-</div>
-
-</div>
-
-</div>
-
-<!-- ======================================
-JS
-====================================== -->
-
+<script src="../js/database.js"></script>
 <script src="../js/pedidos.js"></script>
-
-</main>
-
-</div>
-
 </body>
 </html>

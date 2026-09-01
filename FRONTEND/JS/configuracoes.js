@@ -1,235 +1,123 @@
-// =========================
-// THEME
-// =========================
+// ============================================================
+// BLOCO CONFIGURAÇÕES - ASA TEC 3D
+// ============================================================
 
+// BLOCO TEMA
 const body = document.body;
+const lightBtn = document.getElementById('lightTheme');
+const darkBtn = document.getElementById('darkTheme');
 
-const lightThemeBtn =
-  document.getElementById('lightTheme');
-
-const darkThemeBtn =
-  document.getElementById('darkTheme');
-
-// LOAD THEME
-
-const savedTheme =
-  localStorage.getItem('theme');
-
-if (savedTheme === 'dark') {
-
-  body.classList.add('dark');
-
-  darkThemeBtn.classList.add('active');
-
-  lightThemeBtn.classList.remove('active');
-
+function aplicarTema(theme) {
+  if (theme === 'dark') {
+    body.classList.add('dark');
+    darkBtn.classList.add('active');
+    lightBtn.classList.remove('active');
+  } else {
+    body.classList.remove('dark');
+    lightBtn.classList.add('active');
+    darkBtn.classList.remove('active');
+  }
+  localStorage.setItem('theme', theme);
 }
 
-// LIGHT
+// Carregar tema salvo
+const savedTheme = localStorage.getItem('theme') || 'light';
+aplicarTema(savedTheme);
 
-lightThemeBtn.addEventListener('click', () => {
+lightBtn.addEventListener('click', () => aplicarTema('light'));
+darkBtn.addEventListener('click', () => aplicarTema('dark'));
 
-  body.classList.remove('dark');
+// BLOCO FONTE
+const fontPlus = document.getElementById('fontPlus');
+const fontMinus = document.getElementById('fontMinus');
+const fontSizeLabel = document.getElementById('fontSizeLabel');
 
-  localStorage.setItem('theme', 'light');
+let currentFontSize = Number(localStorage.getItem('fontSize')) || 16;
 
-  lightThemeBtn.classList.add('active');
-
-  darkThemeBtn.classList.remove('active');
-
-});
-
-// DARK
-
-darkThemeBtn.addEventListener('click', () => {
-
-  body.classList.add('dark');
-
-  localStorage.setItem('theme', 'dark');
-
-  darkThemeBtn.classList.add('active');
-
-  lightThemeBtn.classList.remove('active');
-
-});
-
-// =========================
-// FONT SIZE
-// =========================
-
-const fontPlus =
-  document.getElementById('fontPlus');
-
-const fontMinus =
-  document.getElementById('fontMinus');
-
-const fontSizeLabel =
-  document.getElementById('fontSizeLabel');
-
-let currentFontSize =
-  Number(localStorage.getItem('fontSize')) || 16;
-
-applyFontSize();
-
-function applyFontSize() {
-
-  document.documentElement.style.fontSize =
-    `${currentFontSize}px`;
-
-  fontSizeLabel.innerText =
-    `${currentFontSize}px`;
-
-  localStorage.setItem(
-    'fontSize',
-    currentFontSize
-  );
-
+function aplicarFonte(tamanho) {
+  document.documentElement.style.fontSize = tamanho + 'px';
+  fontSizeLabel.textContent = tamanho + 'px';
+  localStorage.setItem('fontSize', tamanho);
 }
 
-// PLUS
+aplicarFonte(currentFontSize);
 
 fontPlus.addEventListener('click', () => {
-
   if (currentFontSize < 22) {
-
     currentFontSize++;
-
-    applyFontSize();
-
+    aplicarFonte(currentFontSize);
   }
-
 });
-
-// MINUS
 
 fontMinus.addEventListener('click', () => {
-
   if (currentFontSize > 12) {
-
     currentFontSize--;
-
-    applyFontSize();
-
+    aplicarFonte(currentFontSize);
   }
-
 });
 
-// =========================
-// EMPRESA
-// =========================
+// BLOCO DADOS DA EMPRESA
+const empresaForm = document.getElementById('empresaForm');
 
-const empresaForm =
-  document.getElementById('empresaForm');
-
-empresaForm.addEventListener('submit', (e) => {
-
+empresaForm.addEventListener('submit', function(e) {
   e.preventDefault();
-
   const empresa = {
-
-    nome:
-      document.getElementById('empresaNome').value,
-
-    cnpj:
-      document.getElementById('empresaCnpj').value,
-
-    email:
-      document.getElementById('empresaEmail').value,
-
-    telefone:
-      document.getElementById('empresaTelefone').value,
-
-    endereco:
-      document.getElementById('empresaEndereco').value
-
+    nome: document.getElementById('empresaNome').value,
+    cnpj: document.getElementById('empresaCnpj').value,
+    email: document.getElementById('empresaEmail').value,
+    telefone: document.getElementById('empresaTelefone').value,
+    endereco: document.getElementById('empresaEndereco').value
   };
-
-  localStorage.setItem(
-    'empresa',
-    JSON.stringify(empresa)
-  );
-
-  alert('Dados da empresa salvos!');
-
+  localStorage.setItem('empresa', JSON.stringify(empresa));
+  alert('Dados da empresa salvos com sucesso!');
 });
 
-// LOAD EMPRESA
-
-const empresaSaved =
-  JSON.parse(localStorage.getItem('empresa'));
-
+// Carregar dados da empresa salvos
+const empresaSaved = JSON.parse(localStorage.getItem('empresa'));
 if (empresaSaved) {
-
-  document.getElementById('empresaNome').value =
-    empresaSaved.nome || '';
-
-  document.getElementById('empresaCnpj').value =
-    empresaSaved.cnpj || '';
-
-  document.getElementById('empresaEmail').value =
-    empresaSaved.email || '';
-
-  document.getElementById('empresaTelefone').value =
-    empresaSaved.telefone || '';
-
-  document.getElementById('empresaEndereco').value =
-    empresaSaved.endereco || '';
-
+  document.getElementById('empresaNome').value = empresaSaved.nome || '';
+  document.getElementById('empresaCnpj').value = empresaSaved.cnpj || '';
+  document.getElementById('empresaEmail').value = empresaSaved.email || '';
+  document.getElementById('empresaTelefone').value = empresaSaved.telefone || '';
+  document.getElementById('empresaEndereco').value = empresaSaved.endereco || '';
 }
 
-// =========================
-// REDES SOCIAIS
-// =========================
+// BLOCO REDES SOCIAIS
+const socialForm = document.getElementById('socialForm');
 
-const socialForm =
-  document.getElementById('socialForm');
-
-socialForm.addEventListener('submit', (e) => {
-
+socialForm.addEventListener('submit', function(e) {
   e.preventDefault();
-
   const social = {
-
-    instagram:
-      document.getElementById('instagram').value,
-
-    whatsapp:
-      document.getElementById('whatsapp').value,
-
-    tiktok:
-      document.getElementById('tiktok').value,
-
-    site:
-      document.getElementById('site').value
-
+    instagram: document.getElementById('instagram').value,
+    whatsapp: document.getElementById('whatsapp').value,
+    tiktok: document.getElementById('tiktok').value,
+    site: document.getElementById('site').value
   };
-
-  localStorage.setItem(
-    'social',
-    JSON.stringify(social)
-  );
-
-  alert('Redes sociais salvas!');
-
+  localStorage.setItem('social', JSON.stringify(social));
+  alert('Redes sociais salvas com sucesso!');
 });
 
-// LOAD SOCIAL
-
-const socialSaved =
-  JSON.parse(localStorage.getItem('social'));
-
+// Carregar redes sociais salvas
+const socialSaved = JSON.parse(localStorage.getItem('social'));
 if (socialSaved) {
-
-  document.getElementById('instagram').value =
-    socialSaved.instagram || '';
-
-  document.getElementById('whatsapp').value =
-    socialSaved.whatsapp || '';
-
-  document.getElementById('tiktok').value =
-    socialSaved.tiktok || '';
-
-  document.getElementById('site').value =
-    socialSaved.site || '';
-
+  document.getElementById('instagram').value = socialSaved.instagram || '';
+  document.getElementById('whatsapp').value = socialSaved.whatsapp || '';
+  document.getElementById('tiktok').value = socialSaved.tiktok || '';
+  document.getElementById('site').value = socialSaved.site || '';
 }
+
+// BLOCO ATUALIZAR LINKS SOCIAIS NA SIDEBAR (opcional)
+function atualizarLinksSociais() {
+  const socialData = JSON.parse(localStorage.getItem('social'));
+  if (socialData) {
+    const instaLink = document.querySelector('.instagram-link');
+    const whatsLink = document.querySelector('.whatsapp-link');
+    if (instaLink && socialData.instagram) {
+      instaLink.href = socialData.instagram;
+    }
+    if (whatsLink && socialData.whatsapp) {
+      whatsLink.href = socialData.whatsapp;
+    }
+  }
+}
+atualizarLinksSociais();
