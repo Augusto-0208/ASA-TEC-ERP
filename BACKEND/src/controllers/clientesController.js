@@ -1,199 +1,69 @@
-const { conectarBanco, sql } = require("../database/connection");
+// backend/src/controllers/clientesController.js
+// BLOCO: CONTROLLER DE CLIENTES
+const ClienteModel = require('../models/clienteModel');
 
-
-// LISTAR CLIENTES
-async function listarClientes(req, res) {
-
-    try {
-
-        const banco = await conectarBanco();
-
-        const resultado = await banco.request()
-            .query(`
-                SELECT *
-                FROM Clientes
-                WHERE Ativo = 1
-                ORDER BY Nome
-            `);
-
-        res.json(resultado.recordset);
-
-    } catch (erro) {
-
-        res.status(500).json({
-            erro: "Erro ao listar clientes",
-            detalhe: erro.message
-        });
-
-    }
-}
-
+// LISTAR TODOS
+exports.listarClientes = async (req, res) => {
+  try {
+    const clientes = await ClienteModel.listar();
+    res.json(clientes);
+  } catch (error) {
+    console.error('Erro ao listar clientes:', error);
+    res.status(500).json({ erro: 'Erro ao listar clientes' });
+  }
+};
 
 // BUSCAR POR ID
-async function buscarCliente(req,res){
+exports.buscarCliente = async (req, res) => {
+  try {
+    const id = parseInt(req.params.id);
+    if (isNaN(id)) return res.status(400).json({ erro: 'ID inválido' });
+    const cliente = await ClienteModel.buscarPorId(id);
+    if (!cliente) return res.status(404).json({ erro: 'Cliente não encontrado' });
+    res.json(cliente);
+  } catch (error) {
+    console.error('Erro ao buscar cliente:', error);
+    res.status(500).json({ erro: 'Erro ao buscar cliente' });
+  }
+};
 
-    try {
+// CRIAR NOVO CLIENTE
+exports.criarCliente = async (req, res) => {
+  try {
+    const dados = req.body;
+    if (!dados.nome) return res.status(400).json({ erro: 'Nome é obrigatório' });
+    const novo = await ClienteModel.criar(dados);
+    res.status(201).json(novo);
+  } catch (error) {
+    console.error('Erro ao criar cliente:', error);
+    res.status(500).json({ erro: 'Erro ao criar cliente' });
+  }
+};
 
-        const banco = await conectarBanco();
+// ATUALIZAR CLIENTE
+exports.atualizarCliente = async (req, res) => {
+  try {
+    const id = parseInt(req.params.id);
+    if (isNaN(id)) return res.status(400).json({ erro: 'ID inválido' });
+    const dados = req.body;
+    const atualizado = await ClienteModel.atualizar(id, dados);
+    if (!atualizado) return res.status(404).json({ erro: 'Cliente não encontrado' });
+    res.json(atualizado);
+  } catch (error) {
+    console.error('Erro ao atualizar cliente:', error);
+    res.status(500).json({ erro: 'Erro ao atualizar cliente' });
+  }
+};
 
-        const resultado = await banco.request()
-            .input(
-                "IdCliente",
-                sql.Int,
-                req.params.id
-            )
-            .query(`
-                SELECT *
-                FROM Clientes
-                WHERE IdCliente = @IdCliente
-            `);
-
-
-        if(resultado.recordset.length === 0){
-            return res.status(404).json({
-                mensagem:"Cliente não encontrado"
-            });
-        }
-
-
-        res.json(resultado.recordset[0]);
-
-
-    } catch(erro){
-
-        res.status(500).json({
-            erro:"Erro ao buscar cliente",
-            detalhe:erro.message
-        });
-
-    }
-}
-
-
-
-// CRIAR CLIENTE
-async function criarCliente(req,res){
-
-    try {
-
-        const {
-            Nome,
-            Telefone,
-            Email,
-            Instagram,
-            Endereco,
-            Foto,
-            Observacao
-        } = req.body;
-
-
-        const banco = await conectarBanco();
-
-
-        const resultado = await banco.request()
-
-            .input("Nome",sql.VarChar,Nome)
-            .input("Telefone",sql.VarChar,Telefone)
-            .input("Email",sql.VarChar,Email)
-            .input("Instagram",sql.VarChar,Instagram)
-            .input("Endereco",sql.VarChar,Endereco)
-            .input("Foto",sql.VarChar,Foto)
-            .input("Observacao",sql.VarChar,Observacao)
-
-            .query(`
-
-                INSERT INTO Clientes
-                (
-                    Nome,
-                    Telefone,
-                    Email,
-                    Instagram,
-                    Endereco,
-                    Foto,
-                    Observacao,
-                    DataCadastro,
-                    Ativo
-                )
-
-                OUTPUT INSERTED.*
-
-                VALUES
-                (
-                    @Nome,
-                    @Telefone,
-                    @Email,
-                    @Instagram,
-                    @Endereco,
-                    @Foto,
-                    @Observacao,
-                    GETDATE(),
-                    1
-                )
-
-            `);
-
-
-        res.status(201).json(resultado.recordset[0]);
-
-
-    }catch(erro){
-
-        res.status(500).json({
-            erro:"Erro ao criar cliente",
-            detalhe:erro.message
-        });
-
-    }
-
-}
-
-
-
-// DESATIVAR CLIENTE
-async function excluirCliente(req,res){
-
-    try {
-
-        const banco = await conectarBanco();
-
-
-        await banco.request()
-
-        .input(
-            "IdCliente",
-            sql.Int,
-            req.params.id
-        )
-
-        .query(`
-
-            UPDATE Clientes
-            SET Ativo = 0
-            WHERE IdCliente = @IdCliente
-
-        `);
-
-
-        res.json({
-            mensagem:"Cliente desativado com sucesso"
-        });
-
-
-    }catch(erro){
-
-        res.status(500).json({
-            erro:"Erro ao desativar cliente",
-            detalhe:erro.message
-        });
-
-    }
-
-}
-
-
-module.exports = {
-    listarClientes,
-    buscarCliente,
-    criarCliente,
-    excluirCliente
+// EXCLUIR (DESATIVAR) CLIENTE
+exports.excluirCliente = async (req, res) => {
+  try {
+    const id = parseInt(req.params.id);
+    if (isNaN(id)) return res.status(400).json({ erro: 'ID inválido' });
+    await ClienteModel.excluir(id);
+    res.json({ mensagem: 'Cliente desativado com sucesso' });
+  } catch (error) {
+    console.error('Erro ao excluir cliente:', error);
+    res.status(500).json({ erro: 'Erro ao excluir cliente' });
+  }
 };

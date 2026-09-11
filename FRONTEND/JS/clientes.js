@@ -1,11 +1,25 @@
+
+protegerPagina();  // 👈 PRIMEIRA LINHA
+
 // ============================================================
-// BLOCO CLIENTES
+// BLOCO 1: CONFIGURAÇÃO DA API
+// ============================================================
+// 🔥 IMPORTANTE: se você abre o frontend em http://localhost:5500,
+// use a URL absoluta com a porta do backend (3000):
+const API_URL = 'http://localhost:3000/api';
+// Se você abre o frontend pelo próprio Node (http://localhost:3000),
+// use apenas '/api'.
+
+// ============================================================
+// BLOCO 2: DADOS (FALLBACK LOCAL)
 // ============================================================
 let db = getDatabase();
 let clientes = db.clientes || [];
 let pedidos = db.pedidos || [];
 
-// BLOCO ELEMENTOS
+// ============================================================
+// BLOCO 3: ELEMENTOS DOM
+// ============================================================
 const listaClientes = document.getElementById('listaClientes');
 const buscarCliente = document.getElementById('buscarCliente');
 const ordenarClientes = document.getElementById('ordenarClientes');
@@ -14,9 +28,55 @@ const modalCliente = document.getElementById('modalCliente');
 const perfilCliente = document.getElementById('perfilCliente');
 
 function formatarMoeda(valor) { return Number(valor||0).toLocaleString('pt-BR',{style:'currency',currency:'BRL'}); }
-function fotoPadrao() { return 'assets/user.png'; }
+function fotoPadrao() { return 'https://cdn-icons-png.flaticon.com/512/149/149071.png'; }
 
-// BLOCO ATUALIZAR RESUMO
+// ============================================================
+// BLOCO 4: CARREGAR CLIENTES DA API
+// ============================================================
+async function carregarClientes() {
+  try {
+    console.log('📡 Buscando clientes da API...');
+    const resposta = await fetch(`${API_URL}/clientes`);
+    if (!resposta.ok) throw new Error(`HTTP ${resposta.status}`);
+    const dados = await resposta.json();
+    console.log('✅ Clientes carregados:', dados);
+    clientes = dados;
+    db.clientes = clientes;
+    saveDatabase(db);
+    renderClientes();
+    atualizarResumo();
+  } catch (erro) {
+    console.warn('⚠️ API indisponível, usando localStorage');
+    clientes = db.clientes || [];
+    renderClientes();
+    atualizarResumo();
+  }
+}
+
+// ============================================================
+// BLOCO 5: SALVAR CLIENTE NO BACKEND
+// ============================================================
+async function salvarClienteNoBackend(dados) {
+  try {
+    console.log('📤 Enviando cliente para API:', dados);
+    const resposta = await fetch(`${API_URL}/clientes`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(dados)
+    });
+    if (!resposta.ok) throw new Error(`HTTP ${resposta.status}`);
+    const resultado = await resposta.json();
+    console.log('✅ Cliente criado:', resultado);
+    return resultado;
+  } catch (erro) {
+    console.error('❌ Erro no POST:', erro);
+    return null;
+  }
+}
+
+// ============================================================
+// BLOCO 6: ATUALIZAR RESUMO (CARDS)
+// ============================================================
 function atualizarResumo() {
   const totalClientes = clientes.filter(c => c.tipo === 'cliente' || !c.tipo).length;
   const totalRevendedores = clientes.filter(c => c.tipo === 'revendedor').length;
@@ -31,7 +91,9 @@ function atualizarResumo() {
   document.getElementById('valorVendido').textContent = formatarMoeda(valorTotal);
 }
 
-// BLOCO RENDER CLIENTES
+// ============================================================
+// BLOCO 7: RENDER CLIENTES
+// ============================================================
 function renderClientes() {
   listaClientes.innerHTML = '';
   let lista = [...clientes];
@@ -41,7 +103,6 @@ function renderClientes() {
   if (time !== 'todos') {
     lista = lista.filter(c => (c.tipo || 'cliente') === time);
   }
-  // Ordenação
   if (ordenarClientes.value === 'nome') lista.sort((a,b) => a.nome.localeCompare(b.nome));
   else if (ordenarClientes.value === 'valor') {
     lista.sort((a,b) => {
@@ -85,57 +146,82 @@ function renderClientes() {
   atualizarResumo();
 }
 
-// BLOCO FILTROS
+// ============================================================
+// BLOCO 8: FILTROS
+// ============================================================
 buscarCliente.addEventListener('input', renderClientes);
 ordenarClientes.addEventListener('change', renderClientes);
 filtroTime.addEventListener('change', renderClientes);
 
-// BLOCO MODAL NOVO CLIENTE
+// ============================================================
+// BLOCO 9: MODAL NOVO CLIENTE
+// ============================================================
 function abrirNovoCliente() { document.getElementById('modalNovoCliente').classList.add('active'); }
 function fecharNovoCliente() { document.getElementById('modalNovoCliente').classList.remove('active'); }
-document.getElementById('formCliente')?.addEventListener('submit', function(e) {
-  e.preventDefault();
-  const fotoInput = document.getElementById('foto');
-  const reader = new FileReader();
-  reader.onload = function() {
-    const novoCliente = {
-      nome: document.getElementById('nome').value,
-      telefone: document.getElementById('telefone').value,
-      email: document.getElementById('email').value,
-      instagram: document.getElementById('instagram').value,
-      endereco: document.getElementById('endereco').value,
-      tipo: document.getElementById('tipoCadastro').value,
-      observacoes: document.getElementById('observacoes').value,
-      foto: reader.result || fotoPadrao()
-    };
-    clientes.push(novoCliente);
-    db.clientes = clientes;
-    saveDatabase(db);
-    fecharNovoCliente();
-    renderClientes();
-  };
-  if (fotoInput.files && fotoInput.files[0]) reader.readAsDataURL(fotoInput.files[0]);
-  else reader.result = fotoPadrao();
-});
 
-// BLOCO PERFIL CLIENTE (removidos empresa, comissão, próximo acerto)
+const formCliente = document.getElementById('formCliente');
+if (formCliente) {
+  formCliente.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const nome = document.getElementById('nome')?.value || '';
+    const telefone = document.getElementById('telefone')?.value || '';
+    const email = document.getElementById('email')?.value || '';
+    const instagram = document.getElementById('instagram')?.value || '';
+    const endereco = document.getElementById('endereco')?.value || '';
+    const tipo = document.getElementById('tipoCadastro')?.value || 'cliente';
+    const observacoes = document.getElementById('observacoes')?.value || '';
+    const fotoInput = document.getElementById('foto');
+
+    async function finalizar(fotoBase64) {
+      const dados = { nome, telefone, email, instagram, endereco, tipo, observacoes, foto: fotoBase64 || fotoPadrao() };
+      const resultado = await salvarClienteNoBackend(dados);
+      if (resultado) {
+        await carregarClientes();
+        alert('✅ Cliente cadastrado no banco!');
+      } else {
+        // fallback
+        clientes.push(dados);
+        db.clientes = clientes;
+        saveDatabase(db);
+        renderClientes();
+        alert('⚠️ Salvo localmente (fallback)');
+      }
+      formCliente.reset();
+      fecharNovoCliente();
+    }
+
+    if (fotoInput && fotoInput.files && fotoInput.files[0]) {
+      const reader = new FileReader();
+      reader.onload = e => finalizar(e.target.result);
+      reader.readAsDataURL(fotoInput.files[0]);
+    } else {
+      finalizar(null);
+    }
+  });
+}
+
+// ============================================================
+// BLOCO 10: PERFIL E EDIÇÃO (resumido)
+// ============================================================
 function abrirPerfil(index) {
   const cliente = clientes[index];
+  if (!cliente) return;
   const pedidosCliente = pedidos.filter(p => p.cliente === cliente.nome);
-  const totalComprado = pedidosCliente.reduce((s,p) => s+Number(p.valor||0),0);
+  const totalComprado = pedidosCliente.reduce((s,p) => s + Number(p.valor||0), 0);
   let historico = pedidosCliente.map(p => `
     <div class="historico-item">
       <div class="historico-info"><strong>${p.produto}</strong><span>${p.status}</span></div>
       <strong>${formatarMoeda(p.valor)}</strong>
     </div>
   `).join('');
+
   perfilCliente.innerHTML = `
     <div class="perfil-header">
       <div style="display:flex;align-items:center;gap:20px;">
         <img src="${cliente.foto || fotoPadrao()}" class="perfil-foto">
         <div><h2>${cliente.nome}</h2><p>${cliente.tipo || 'Cliente'}</p></div>
       </div>
-      <button class="btn-salvar" onclick="salvarEdicao(${index})"><i class="fa-solid fa-floppy-disk"></i> Salvar</button>
+      <button class="btn-salvar" data-index="${index}"><i class="fa-solid fa-floppy-disk"></i> Salvar</button>
     </div>
     <div class="perfil-grid">
       <div class="perfil-card">
@@ -145,13 +231,11 @@ function abrirPerfil(index) {
         <div class="input-group"><label>Email</label><input type="email" id="editEmail" value="${cliente.email || ''}"></div>
         <div class="input-group"><label>Instagram</label><input type="text" id="editInstagram" value="${cliente.instagram || ''}"></div>
         <div class="input-group"><label>Endereço</label><input type="text" id="editEndereco" value="${cliente.endereco || ''}"></div>
-        <div class="input-group"><label>Tipo</label>
-          <select id="editTipo">
-            <option value="cliente" ${cliente.tipo==='cliente'||!cliente.tipo?'selected':''}>Cliente</option>
-            <option value="revendedor" ${cliente.tipo==='revendedor'?'selected':''}>Revendedor</option>
-            <option value="loja" ${cliente.tipo==='loja'?'selected':''}>Loja Parceira</option>
-          </select>
-        </div>
+        <div class="input-group"><label>Tipo</label><select id="editTipo">
+          <option value="cliente" ${cliente.tipo==='cliente'||!cliente.tipo?'selected':''}>Cliente</option>
+          <option value="revendedor" ${cliente.tipo==='revendedor'?'selected':''}>Revendedor</option>
+          <option value="loja" ${cliente.tipo==='loja'?'selected':''}>Loja Parceira</option>
+        </select></div>
         <div class="input-group"><label>Observações</label><textarea id="editObservacoes">${cliente.observacoes || ''}</textarea></div>
         <div class="input-group"><label>Foto</label><input type="file" id="editFoto" accept="image/*"></div>
       </div>
@@ -166,38 +250,73 @@ function abrirPerfil(index) {
     </div>
     <div class="perfil-card"><h3>Histórico de Pedidos</h3><div class="historico-lista">${historico || '<p>Nenhum pedido.</p>'}</div></div>
   `;
+  document.querySelector('.btn-salvar')?.addEventListener('click', function() {
+    const idx = parseInt(this.dataset.index);
+    salvarEdicao(idx);
+  });
   modalCliente.classList.add('active');
 }
 
-function salvarEdicao(index) {
+async function salvarEdicao(index) {
   const cliente = clientes[index];
-  cliente.nome = document.getElementById('editNome').value;
-  cliente.telefone = document.getElementById('editTelefone').value;
-  cliente.email = document.getElementById('editEmail').value;
-  cliente.instagram = document.getElementById('editInstagram').value;
-  cliente.endereco = document.getElementById('editEndereco').value;
-  cliente.tipo = document.getElementById('editTipo').value;
-  cliente.observacoes = document.getElementById('editObservacoes').value;
+  if (!cliente) return;
+  const dados = {
+    nome: document.getElementById('editNome').value,
+    telefone: document.getElementById('editTelefone').value,
+    email: document.getElementById('editEmail').value,
+    instagram: document.getElementById('editInstagram').value,
+    endereco: document.getElementById('editEndereco').value,
+    tipo: document.getElementById('editTipo').value,
+    observacao: document.getElementById('editObservacoes').value
+  };
   const fotoInput = document.getElementById('editFoto');
-  if (fotoInput.files && fotoInput.files[0]) {
+  if (fotoInput && fotoInput.files && fotoInput.files[0]) {
     const reader = new FileReader();
-    reader.onload = function() {
-      cliente.foto = reader.result;
-      finalizarEdicao();
+    reader.onload = async function(e) {
+      dados.foto = e.target.result;
+      await finalizarAtualizacao(index, dados);
     };
     reader.readAsDataURL(fotoInput.files[0]);
   } else {
-    finalizarEdicao();
+    await finalizarAtualizacao(index, dados);
   }
-  function finalizarEdicao() {
+}
+
+async function finalizarAtualizacao(index, dados) {
+  const cliente = clientes[index];
+  const id = cliente.id;
+  if (!id) {
+    Object.assign(cliente, dados);
     db.clientes = clientes;
     saveDatabase(db);
     renderClientes();
     fecharModal();
+    return;
+  }
+  try {
+    const resposta = await fetch(`${API_URL}/clientes/${id}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(dados)
+    });
+    if (!resposta.ok) throw new Error('Erro ao atualizar');
+    await carregarClientes();
+    fecharModal();
+    alert('✅ Cliente atualizado!');
+  } catch (erro) {
+    console.error(erro);
+    Object.assign(cliente, dados);
+    db.clientes = clientes;
+    saveDatabase(db);
+    renderClientes();
+    fecharModal();
+    alert('⚠️ Atualizado localmente (fallback)');
   }
 }
 
 function fecharModal() { modalCliente.classList.remove('active'); }
 
-// BLOCO INIT
-renderClientes();
+// ============================================================
+// BLOCO 11: INIT
+// ============================================================
+carregarClientes();

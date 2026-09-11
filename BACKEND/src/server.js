@@ -1,104 +1,77 @@
-require("dotenv").config();
-
-const express = require("express");
-const cors = require("cors");
-
-const { conectarBanco } = require("./database/connection");
-
-const clientesRoutes = require("./routes/clientesRoutes");
-
+// backend/src/server.js
+// BLOCO 1: IMPORTAÇÕES
+require('dotenv').config();
+const express = require('express');
+const cors = require('cors');
+const path = require('path');
+const { getConnection } = require('./database/connection');
 
 const app = express();
 
-
-// ==============================
-// CONFIGURAÇÕES
-// ==============================
-
+// BLOCO 2: MIDDLEWARES
 app.use(cors());
+app.use(express.json({ limit: '10mb' }));
 
-app.use(express.json());
+// BLOCO 3: SERVIR ARQUIVOS ESTÁTICOS (FRONTEND)
+app.use(express.static(path.join(__dirname, '../../frontend')));
 
-app.use(express.urlencoded({ extended: true }));
+// BLOCO 4: ROTAS DA API
+const pedidoRoutes = require('./routes/pedidoRoutes');
+const clienteRoutes = require('./routes/clienteRoutes');
+const authRoutes = require('./routes/authRoutes'); // 👈 ROTA DE LOGIN
+const authMiddleware = require('./middlewares/authMiddleware'); // 👈 MIDDLEWARE JWT
 
-
-// ==============================
-// TESTE API
-// ==============================
-
-app.get("/", (req, res) => {
-
-    res.json({
-        sistema: "ASA TEC ERP",
-        status: "API ONLINE"
-    });
-
+// 🔍 Middleware de debug para clientes
+app.use('/api/clientes', (req, res, next) => {
+  console.log('✅ ROTA /api/clientes FOI ACIONADA!');
+  next();
 });
 
-
-// ==============================
-// ROTAS DA API
-// ==============================
-
-app.use(
-    "/api/clientes",
-    clientesRoutes
-);
-
-
-// ==============================
-// TRATAMENTO DE ERROS
-// ==============================
-
-app.use((err, req, res, next) => {
-
-    console.error(err);
-
-    res.status(500).json({
-        erro: "Erro interno do servidor",
-        detalhe: err.message
-    });
-
+// 🔍 Middleware de debug para pedidos
+app.use('/api/pedidos', (req, res, next) => {
+  console.log('✅ ROTA /api/pedidos FOI ACIONADA!');
+  next();
 });
 
+// 🔍 Middleware de debug para autenticação
+app.use('/api/auth', (req, res, next) => {
+  console.log('✅ ROTA /api/auth FOI ACIONADA!');
+  next();
+});
 
-// ==============================
-// INICIALIZAÇÃO DO SERVIDOR
-// ==============================
+// BLOCO 5: REGISTRO DAS ROTAS
 
-const PORTA = process.env.PORT || 3000;
+// 🔓 Rota pública — login (não exige token)
+app.use('/api/auth', authRoutes);
 
+// 🔒 Rotas protegidas — exigem token JWT válido
+app.use('/api/pedidos', authMiddleware, pedidoRoutes);
+app.use('/api/clientes', authMiddleware, clienteRoutes);
 
-async function iniciarServidor() {
+// BLOCO 6: INICIAR SERVIDOR
+const PORT = process.env.PORT || 3000;
 
-    try {
+const server = app.listen(PORT, async () => {
+  console.log(`🚀 Servidor rodando em http://localhost:${PORT}`);
+  console.log(`📁 Frontend disponível em http://localhost:${PORT}`);
+  console.log(`📡 API disponível em http://localhost:${PORT}/api`);
+  console.log(`🔐 Login disponível em http://localhost:${PORT}/api/auth/login`);
+  console.log(`🛡️  Rotas protegidas: /api/clientes e /api/pedidos`);
 
-        await conectarBanco();
+  try {
+    await getConnection();
+    console.log('✅ Conexão com SQL Server OK');
+  } catch (err) {
+    console.error('❌ Falha no banco:', err);
+  }
+});
 
+// Mantém o processo vivo e escutando erros do servidor
+server.on('error', (err) => {
+  console.error('❌ Erro no servidor HTTP:', err);
+});
 
-        app.listen(PORTA, () => {
-
-            console.log("--------------------------------");
-            console.log("🚀 ASA TEC ERP API iniciada");
-            console.log(`🌐 Porta: ${PORTA}`);
-            console.log(`📡 http://localhost:${PORTA}`);
-            console.log("--------------------------------");
-
-        });
-
-
-    } catch (erro) {
-
-        console.error(
-            "❌ Não foi possível iniciar o servidor:",
-            erro.message
-        );
-
-        process.exit(1);
-
-    }
-
-}
-
-
-iniciarServidor();
+// Keep-alive
+setInterval(() => {
+  // console.log('Keep-alive...');
+}, 1000 * 60 * 60);

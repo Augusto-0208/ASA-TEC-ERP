@@ -1,3 +1,6 @@
+
+protegerPagina();  // 👈 PRIMEIRA LINHA
+
 // =========================
 // BOTÃO NOVO PEDIDO
 // =========================
